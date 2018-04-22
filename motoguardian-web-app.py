@@ -11,6 +11,6 @@ app = Flask(__name__)
 # ---- ROUTES ----
 
 # ---------------------------------Home---------------------------------
-@app.route('/landing')
+@app.route('/')
 def land():
     return render_template('landing.html')
