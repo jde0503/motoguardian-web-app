@@ -133,3 +133,7 @@ footer.footer {
   height: 8rem;
   width: auto;
 }
+
+#cta-ty {
+  font-size: 70px;
+}
