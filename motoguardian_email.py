@@ -16,3 +16,11 @@ def send_email(recipients, subject, body):
 
     with app.app_context():
         mail.send(msg)
+
+
+def send_thank_you_email(recipient):
+    send_email(
+        recipients=[recipient],
+        subject="MotoGuardian - Thank You!",
+        body="Thank you for signing up to receive updates for our product."
+        )
