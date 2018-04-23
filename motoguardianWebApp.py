@@ -7,7 +7,7 @@ from datetime import datetime
 
 
 # --- Declare and initialize global variables ---
-verbose = True
+verbose = False
 conn = None
 
 
@@ -50,13 +50,13 @@ def validateEmail(email_address):
     # Query database for entries with provided email address.
     c.execute("""SELECT COUNT(Email)
                  FROM Email
-                 WHERE email_address=('%s');""",
-              (email_address))
-    count = int(c.fetchone())
+                 WHERE email_address=%s;""",
+              (email_address,))
+    count = int(c.fetchone()[0])
     c.close()
 
     if (verbose):
-        print("Count" + str(count))
+        print("Count: " + str(count))
 
     if (count == 0 and len(email_address) > 6):
         return True
@@ -77,11 +77,12 @@ def insertEmail(email_address):
                     VALUES (%s, %s);""",
               (datetime.now(), email_address))
     db.commit()
-    c.close()
 
     if (verbose):
         c.execute("""SELECT * from Email;""")
         print(c.fetchall())
+
+    c.close()
 
 
 # ---- ROUTES ----

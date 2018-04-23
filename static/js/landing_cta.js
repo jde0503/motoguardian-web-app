@@ -9,7 +9,8 @@ $(document).ready( function() {
             type: "POST",
             url: "/landing",
             data: JSON.stringify({email_address: email}),
-            success: alert("Submission success."),
+            success: (function(){alert("Submission success.");}),
+            error: (function(){alert("Submission failed.");})
         });
 
 		$("div.form-row").replaceWith(
