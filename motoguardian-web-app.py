@@ -73,6 +73,13 @@ def postLanding():
     # Insert email and relevant info into databse.
     c.exeucte("""INSERT INTO Email (submission_time, email_address)
                     VALUES (%s, %s);""",
-              (str(datetime.now()), email))
+              (datetime.now(), email))
+
+    c.commit()
+
+    c.execute("""SELECT * from Email;""")
+    print(c.fetchall())
+
+    c.close()
 
     return 'OK'
