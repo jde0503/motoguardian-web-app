@@ -19,8 +19,9 @@ app = Flask(__name__)
 # Connect to the DB
 def connect_db():
     global conn
-    connect_str = "dbname='testMotoguardian' user='vagrant' host='localhost'"
-    conn = psycopg2.connect(connect_str)
+    #connect_str = "dbname='testMotoguardian' user='vagrant' host='localhost'"
+    connect_str = os.environ['DATABASE_URL']
+    conn = psycopg2.connect(connect_str, sslmode='require')
     return conn
 
 
