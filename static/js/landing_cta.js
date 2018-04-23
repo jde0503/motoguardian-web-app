@@ -2,7 +2,7 @@
 
 $(document).ready( function() {
 
-	$("#submit").click( function() {
+	$(".submit").click( function() {
 		alert("Submitted.");
 		var email = $("#email").val();
 		console.log(email);
