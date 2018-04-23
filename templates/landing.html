@@ -9,6 +9,9 @@
 
     <title>MotoGuardian</title>
 
+    <!-- Bootstrap JQuery library -->
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+
     <!-- Bootstrap core CSS -->
     <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
@@ -178,8 +181,9 @@
     </footer>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+    <!-- Custom JavaScript -->
     <script src="{{ url_for('static', filename='js/landing_cta.js') }}"></script>
 
   </body>
