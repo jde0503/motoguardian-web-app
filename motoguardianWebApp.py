@@ -12,6 +12,8 @@ from flask import Flask, render_template, redirect, request, abort
 
 # ---- APP SETUP ----
 app = Flask(__name__)
+# connect_str = "dbname='testMotoguardian' user='vagrant' host='localhost'"
+connect_str = os.environ['DATABASE_URL']
 
 
 # ---- Import custom packages and modules ----

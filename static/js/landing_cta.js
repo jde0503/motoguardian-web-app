@@ -3,7 +3,7 @@
 $(document).ready( function() {
 
 	$(".submit").click( function() {
-		var email = $("#email").val();
+		var email = $("input:valid").val();
 
         $.ajax({
             type: "POST",

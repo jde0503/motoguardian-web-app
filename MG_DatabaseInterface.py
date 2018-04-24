@@ -12,7 +12,7 @@ import os
 
 
 # ---- Import non-custom packages and modules ----
-from motoguardianWebApp import app
+from motoguardianWebApp import app, connect_str
 
 
 # --- Declare and initialize global variables ---
@@ -23,8 +23,6 @@ conn = None
 # Connect to the DB1
 def connect_db():
     global conn
-    # connect_str = "dbname='testMotoguardian' user='vagrant' host='localhost'"
-    connect_str = os.environ['DATABASE_URL']
     conn = psycopg2.connect(connect_str, sslmode='require')  # sslmode='require'
     return conn
 
