@@ -3,8 +3,6 @@ from flask import Flask, render_template, redirect, request, abort
 import psycopg2
 import os
 from datetime import datetime
-from landingEmail import sendThanks
-
 
 # --- Declare and initialize global variables ---
 verbose = False
@@ -19,9 +17,9 @@ app = Flask(__name__)
 # Connect to the DB
 def connect_db():
     global conn
-    connect_str = "dbname='testMotoguardian' user='vagrant' host='localhost'"
-    #connect_str = os.environ['DATABASE_URL']
-    conn = psycopg2.connect(connect_str)  # sslmode='require'
+    # connect_str = "dbname='testMotoguardian' user='vagrant' host='localhost'"
+    connect_str = os.environ['DATABASE_URL']
+    conn = psycopg2.connect(connect_str, sslmode='require')  # sslmode='require'
     return conn
 
 
@@ -67,8 +65,6 @@ def validateEmail(email_address):
 
 # Inserts email address into database.
 def insertEmail(email_address):
-    print(email_address)
-
     # Get database connection and cursor.
     db = get_db()
     c = db.cursor()
@@ -103,6 +99,8 @@ def getLanding():
 # POST Landing
 @app.route('/landing', methods=['POST'])
 def postLanding():
+    from landingEmail import sendThanks
+
     # Get database connection and cursor.
     db = get_db()
     c = db.cursor()
