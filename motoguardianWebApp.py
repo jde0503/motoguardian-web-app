@@ -1,85 +1,22 @@
-# ---- Import necessary packages and modules ----
-from flask import Flask, render_template, redirect, request, abort
-import psycopg2
-import os
-from datetime import datetime
+# ----------------------------------------------------------------------------
+# filename: motoguardianWebApp.py
+# description: Contains the routing for the motoguardian web app
+#
+# author: Team MotoGuardian
+# ----------------------------------------------------------------------------
 
-# --- Declare and initialize global variables ---
-verbose = False
-conn = None
+
+# ---- Import non-custom packages and modules ----
+from flask import Flask, render_template, redirect, request, abort
 
 
 # ---- APP SETUP ----
 app = Flask(__name__)
 
 
-# ---- DB SETUP ----
-# Connect to the DB
-def connect_db():
-    global conn
-    # connect_str = "dbname='testMotoguardian' user='vagrant' host='localhost'"
-    connect_str = os.environ['DATABASE_URL']
-    conn = psycopg2.connect(connect_str, sslmode='require')  # sslmode='require'
-    return conn
-
-
-# Wrap the helper function so we only open the DB once
-def get_db():
-    global conn
-    if (conn is None or conn.closed != 0):
-        conn = connect_db()
-    return conn
-
-
-# Close the database when the request ends
-@app.teardown_appcontext
-def close_db(error):
-    global conn
-    if conn is not None:
-        conn.close()
-
-
-# ---- Helper Functions ----
-# Returns true if email is valid and unique. Returns false otherwise.
-def validateEmail(email_address):
-    # Get database connection and cursor.
-    db = get_db()
-    c = db.cursor()
-
-    # Query database for entries with provided email address.
-    c.execute("""SELECT COUNT(Email)
-                 FROM Email
-                 WHERE email_address=%s;""",
-              (email_address,))
-    count = int(c.fetchone()[0])
-    c.close()
-
-    if (verbose):
-        print("Count: " + str(count))
-
-    if (count == 0 and len(email_address) > 6):
-        return True
-    else:
-        return False
-
-
-# Inserts email address into database.
-def insertEmail(email_address):
-    # Get database connection and cursor.
-    db = get_db()
-    c = db.cursor()
-
-    # Insert email and relevant info into databse.
-    c.execute("""INSERT INTO Email (submission_time, email_address)
-                    VALUES (%s, %s);""",
-              (datetime.now(), email_address))
-    db.commit()
-
-    if (verbose):
-        c.execute("""SELECT * from Email;""")
-        print(c.fetchall())
-
-    c.close()
+# ---- Import custom packages and modules ----
+from MG_DatabaseInterface import get_db
+from MG_Landing import validateEmail, insertEmail, sendThanks
 
 
 # ---- ROUTES ----
@@ -99,8 +36,6 @@ def getLanding():
 # POST Landing
 @app.route('/landing', methods=['POST'])
 def postLanding():
-    from landingEmail import sendThanks
-
     # Get database connection and cursor.
     db = get_db()
     c = db.cursor()
@@ -111,6 +46,8 @@ def postLanding():
                     submission_time TIMESTAMP NOT NULL,
                     email_address   TEXT UNIQUE NOT NULL
                     );""")
+    db.commit()
+    c.close()
 
     # Get JSON data from request.
     email_address = str(request.get_json(force=True)["email_address"])
