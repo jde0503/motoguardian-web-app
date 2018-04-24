@@ -23,9 +23,9 @@ conn = None
 # Connect to the DB1
 def connect_db():
     global conn
-    connect_str = "dbname='testMotoguardian' user='vagrant' host='localhost'"
-    # connect_str = os.environ['DATABASE_URL']
-    conn = psycopg2.connect(connect_str)  # sslmode='require'
+    # connect_str = "dbname='testMotoguardian' user='vagrant' host='localhost'"
+    connect_str = os.environ['DATABASE_URL']
+    conn = psycopg2.connect(connect_str, sslmode='require')  # sslmode='require'
     return conn
 
 
