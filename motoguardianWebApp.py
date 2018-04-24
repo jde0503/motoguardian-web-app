@@ -3,7 +3,7 @@ from flask import Flask, render_template, redirect, request, abort
 import psycopg2
 import os
 from datetime import datetime
-#from landingEmail import sendThanks
+from landingEmail import sendThanks
 
 
 # --- Declare and initialize global variables ---
@@ -19,9 +19,9 @@ app = Flask(__name__)
 # Connect to the DB
 def connect_db():
     global conn
-    #connect_str = "dbname='testMotoguardian' user='vagrant' host='localhost'"
-    connect_str = os.environ['DATABASE_URL']
-    conn = psycopg2.connect(connect_str, sslmode='require')
+    connect_str = "dbname='testMotoguardian' user='vagrant' host='localhost'"
+    #connect_str = os.environ['DATABASE_URL']
+    conn = psycopg2.connect(connect_str)  # sslmode='require'
     return conn
 
 
@@ -119,7 +119,7 @@ def postLanding():
 
     if (validateEmail(email_address)):
         insertEmail(email_address)
-        # sendThanks(email_address)
+        sendThanks(email_address)
         return 'OK'
     else:
         abort(406)

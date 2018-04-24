@@ -1,13 +1,13 @@
 # ---- Import necessary packages and modules ----
 from flask_mail import Mail, Message
-from email_config import *
+import email_config as cfg
 
 
 # General function to send email.
 def sendEmail(recipients, subject, body):
     from motoguardianWebApp import app
 
-    app.config.from_pyfile('mail_config.cfg')
+    app.config.from_pyfile('email_config.cfg')
     mail = Mail(app)
 
     msg = Message(
