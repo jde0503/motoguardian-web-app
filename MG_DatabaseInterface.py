@@ -12,7 +12,7 @@ import os
 
 
 # ---- Import non-custom packages and modules ----
-from motoguardianWebApp import app, connect_str
+from motoguardianWebApp import app, databaseType
 
 
 # --- Declare and initialize global variables ---
@@ -23,7 +23,12 @@ conn = None
 # Connect to the DB1
 def connect_db():
     global conn
-    conn = psycopg2.connect(connect_str, sslmode='require')  # sslmode='require'
+    if (databaseType == "local"):
+        connect_str = "dbname='testMotoguardian' user='vagrant' host='localhost'"
+        conn = psycopg2.connect(connect_str)
+    elif (databaseType == "heroku"):
+        connect_str = os.environ['DATABASE_URL']
+        conn = psycopg2.connect(connect_str, sslmode='require')
     return conn
 
 

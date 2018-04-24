@@ -3,7 +3,12 @@
 $(document).ready( function() {
 
 	$(".submit").click( function() {
-		var email = $("input:valid").val();
+        if (this.id == "submit1") {
+		    var email = $("#email1").val();
+        }
+        else {
+            var email = $("#email2").val();
+        }
 
         $.ajax({
             type: "POST",

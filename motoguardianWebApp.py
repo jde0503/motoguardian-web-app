@@ -12,8 +12,7 @@ from flask import Flask, render_template, redirect, request, abort
 
 # ---- APP SETUP ----
 app = Flask(__name__)
-# connect_str = "dbname='testMotoguardian' user='vagrant' host='localhost'"
-connect_str = os.environ['DATABASE_URL']
+databaseType = "heroku"  # Choose "local" or "heroku"
 
 
 # ---- Import custom packages and modules ----
@@ -53,6 +52,7 @@ def postLanding():
 
     # Get JSON data from request.
     email_address = str(request.get_json(force=True)["email_address"])
+    print(email_address)
 
     if (validateEmail(email_address)):
         insertEmail(email_address)
