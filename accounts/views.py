@@ -9,16 +9,17 @@ from .forms import CustomUserCreationForm
 from django.contrib import messages
 
 
-
 # Create your views here.
 def landing(request):
-	return render(request,'landing.html')
+    return render(request, 'landing.html')
+
 
 def index(request):
-	return render(request, 'accounts/index.html')
+    return render(request, 'accounts/index.html')
+
 
 def login(request):
-	return(request, 'registration/login.html')
+    return(request, 'registration/login.html')
 
 # def register(request):
 # 	if request.method == 'POST':
@@ -36,6 +37,7 @@ def login(request):
 # 	context = {'form' : form}
 # 	return render(request, 'registration/register.html',context)
 
+
 def register(request):
     if request.method == 'POST':
         f = CustomUserCreationForm(request.POST)
@@ -50,19 +52,17 @@ def register(request):
 
     return render(request, 'registration/register.html', {'form': f})
 
+
 def email(request):
-	if request.method == 'POST':
-		email = request.POST['email']
-		#create new Emails object
-		Emails.objects.create(
-			email = email
-			)
+    if request.method == 'POST':
+        email = request.POST['email']
 
-		email = EmailMessage('MotoGuardian', 'Thank you for subscribing to our mailing list', to=[email])
-		email.send()
+    with open('email_body.txt', 'r') as file:
+            # create new Emails object
+        Emails.objects.create(
+            email=email
+        )
+        email = EmailMessage('MotoGuardian - Thank you!', file.read(), to=[email])
+        email.send()
 
-		return HttpResponse('')
-
-
-
-
+        return HttpResponse('')
