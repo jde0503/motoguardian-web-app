@@ -25,8 +25,8 @@ SECRET_KEY = 'y2p$ii*otrd!lry*y0w@!hlxwm6#8a+d$2v)p&vrbl81y8*1p5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['motoguardian.herokuapp.com']
-# ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['motoguardian.herokuapp.com']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -92,10 +92,10 @@ WSGI_APPLICATION = 'MotoGuardian.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd9gb8mtic5jpdm',
-        'USER': 'jcctwkbrwknwek',
-        'PASSWORD': '4783d5bda4c2c3ca0491aaa748bf8938a1c3117ed77bf9451f79c817d7f9ad9a',
-        'HOST': 'ec2-54-225-200-15.compute-1.amazonaws.com',
+        'NAME': 'de4nstl0d51od5',
+        'USER': 'pyseicpnamdgup',
+        'PASSWORD': '7cd2972dfcf09810aee915cd3b6ecd630ff8b45cdd9798bd6b12a9f47fc1fbe6',
+        'HOST': 'ec2-54-235-109-37.compute-1.amazonaws.com',
         'PORT': '5432',
 
     }
@@ -138,14 +138,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 # for local testing
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static"),
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
 
-# ]
+]
 
 # for HEROKU
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_ROOT = os.path.join((BASE_DIR), 'static')
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATIC_ROOT = os.path.join((BASE_DIR), 'static')
 
 STATIC_URL = '/static/'
 
