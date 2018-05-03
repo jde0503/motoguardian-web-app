@@ -1,2 +1,1 @@
-heroku ps:scale web=1
-web: gunicorn motoguardianWebApp:app
+web: gunicorn MotoGuardian.wsgi --log-file -
