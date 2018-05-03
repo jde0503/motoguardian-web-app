@@ -10,4 +10,4 @@ Project for ECE 140B - Spring 2018
 ### Info:
 This repo contains the motoguarian web app. Different verions of it are used as submodules in the main MotoGuardian repo.
 
-Public Link: http://motoguardian.herokuapp.com
+Public Link: http://motoguardianapp.herokuapp.com
