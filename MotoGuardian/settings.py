@@ -25,7 +25,7 @@ SECRET_KEY = 'y2p$ii*otrd!lry*y0w@!hlxwm6#8a+d$2v)p&vrbl81y8*1p5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['motoguardianapp.herokuapp.com']
+ALLOWED_HOSTS = ['motoguardian.herokuapp.com']
 # ALLOWED_HOSTS = []
 
 # Application definition
@@ -56,7 +56,7 @@ ROOT_URLCONF = 'MotoGuardian.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR),'templates'],
+        'DIRS': [os.path.join(BASE_DIR), 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -88,15 +88,15 @@ WSGI_APPLICATION = 'MotoGuardian.wsgi.application'
 #     }
 # }
 
-#PRODUCTION
+# PRODUCTION
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'd9gb8mtic5jpdm',
         'USER': 'jcctwkbrwknwek',
         'PASSWORD': '4783d5bda4c2c3ca0491aaa748bf8938a1c3117ed77bf9451f79c817d7f9ad9a',
-        'HOST':'ec2-54-225-200-15.compute-1.amazonaws.com',
-        'PORT':'5432',
+        'HOST': 'ec2-54-225-200-15.compute-1.amazonaws.com',
+        'PORT': '5432',
 
     }
 }
@@ -137,15 +137,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-#for local testing
+# for local testing
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, "static"),
-    
+
 # ]
 
-#for HEROKU
+# for HEROKU
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_ROOT = os.path.join((BASE_DIR),'static')
+STATIC_ROOT = os.path.join((BASE_DIR), 'static')
 
 STATIC_URL = '/static/'
 
@@ -157,6 +157,3 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'motoguardian140@gmail.com'
 EMAIL_HOST_PASSWORD = 'UCSD_ECE140B'
-
-
-
