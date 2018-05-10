@@ -35,6 +35,14 @@ function geocodeLatLng(geocoder, map, infowindow) {
   });
 }
 $("#map").css("width", 600).css("height", 400);
+$("#lock").css("width", 200).css("height", 300);
+
+$("#lock").click(function() { 
+       var _this = $(this);
+       var current = _this.attr("src");
+       var swap = _this.attr("data-swap");     
+     _this.attr('src', swap).attr("data-swap",current);   
+});  
 
 new DG.OnOffSwitch({
     el: '#on-off-switch-custom',

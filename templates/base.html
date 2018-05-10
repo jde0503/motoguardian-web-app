@@ -32,9 +32,22 @@
     <!-- Navigation -->
     <nav class="navbar navbar-dark bg-dark static-top">
       <div class="container">
-        <a class="navbar-brand" href="{% url 'landing' %}">MotoGuardian</a>
+        <a class="nav navbar-brand" href="{% url 'landing' %}">MotoGuardian</a>
         <!-- <a class="btn btn-primary" href="{% url 'register' %}">Register</a> -->
-        <a class="btn btn-primary" href="{% url 'login' %}">Customer Login</a>
+        <ul class="nav navbar-nav">
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <li><a class="btn btn-primary" href="{% url 'login' %}">Customer Login</a></li>
+              </div>
+              
+
+              <div class="col">
+                <li><a class="btn btn-primary" href="{% url 'register' %}">Register</a></li>
+              </div>
+            </div>
+          </div>
+        </ul>
       </div>
     </nav>
     <div id="content-block">

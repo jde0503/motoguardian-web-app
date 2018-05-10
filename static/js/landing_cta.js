@@ -11,7 +11,7 @@ $(document).on('submit','#email-form', function(e){
 		
 	});
 	$("div.form-row").replaceWith(
-		"<span id=\"cta-ty\">Thank you for subscribing!</span>"
+		"<span id=\"cta-ty\" style=\"font-size: 50px\">Thank you for subscribing!</span>"
 		);
 });
 
