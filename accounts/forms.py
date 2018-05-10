@@ -2,14 +2,22 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 from django.core.exceptions import ValidationError
+from django.contrib.auth import (
+    authenticate,
+    get_user_model,
+    login,
+    logout,
+    )
 
 
 class CustomUserCreationForm(forms.Form):
     username = forms.CharField(label='Username', min_length=4, max_length=150)
+    first_name = forms.CharField(label='First Name', min_length=2, max_length=150)
+    last_name = forms.CharField(label='Last Name', min_length=2, max_length=150)
     email = forms.EmailField(label='Email')
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
-
+    #phone_number for arduino
     def clean_username(self):
         username = self.cleaned_data['username'].lower()
         r = User.objects.filter(username=username)
@@ -37,8 +45,11 @@ class CustomUserCreationForm(forms.Form):
         user = User.objects.create_user(
             self.cleaned_data['username'],
             self.cleaned_data['email'],
-            self.cleaned_data['password1']
+            self.cleaned_data['password1'],
+            first_name = self.cleaned_data['first_name'].capitalize(),
+            last_name = self.cleaned_data['last_name'].capitalize()
         )
         return user
+
 
 

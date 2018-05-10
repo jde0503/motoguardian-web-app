@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login
 from accounts.models import Emails
 from django.http import HttpResponse, HttpResponseRedirect
@@ -7,35 +7,19 @@ from django.core.mail import send_mail, EmailMessage
 from django.urls import reverse
 from .forms import CustomUserCreationForm
 from django.contrib import messages
+from django.views import generic
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
-def landing(request):
-    return render(request, 'landing.html')
+@login_required
+def dashboard(request):
+    return render(request, 'dashboard/dashboard.html')
 
 
-def index(request):
-    return render(request, 'accounts/index.html')
-
-
-def login(request):
-    return(request, 'registration/login.html')
-
-# def register(request):
-# 	if request.method == 'POST':
-# 		form = UserCreationForm(request.POST)
-# 		if form.is_valid():
-# 			form.save() #saves information to db
-# 			username = form.cleaned_data['username']
-# 			password = form.cleaned_data['password1']
-# 			user = authenticate(username=username, password=password) #password is hashed
-# 			print(user)
-# 			login(user)
-# 			return HttpResponseRedirect(reverse('login'))
-# 	else:
-# 		form = UserCreationForm()
-# 	context = {'form' : form}
-# 	return render(request, 'registration/register.html',context)
+def logout_view(request):
+    logout(request)
+    return render(request, 'landing.html', {})
 
 
 def register(request):
@@ -45,8 +29,8 @@ def register(request):
             f.save()
             messages.success(request, 'Account created successfully')
             # return redirect('register')
-            return HttpResponseRedirect(reverse('login'))
-
+            # return HttpResponseRedirect(reverse('login'))
+            return render(request, 'registration/registration_success.html', {'form': f})
     else:
         f = CustomUserCreationForm()
 
