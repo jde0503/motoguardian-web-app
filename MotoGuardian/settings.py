@@ -25,7 +25,7 @@ SECRET_KEY = 'y2p$ii*otrd!lry*y0w@!hlxwm6#8a+d$2v)p&vrbl81y8*1p5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.herokuapp.com']
+ALLOWED_HOSTS = ['http://motoguardian.herokuapp.com/']
 # ALLOWED_HOSTS = []
 
 # Application definition
