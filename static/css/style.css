@@ -157,4 +157,16 @@ footer.footer {
   width: 225px;
 }
 
+.open-color {
+    color:red;
+    margin-left:75px;
+}
 
+#sysstat {
+  margin-left:35px;
+}
+
+.centered {
+    margin: 0 auto;
+    width: 80%;
+}

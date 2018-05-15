@@ -35,7 +35,7 @@ function geocodeLatLng(geocoder, map, infowindow) {
   });
 }
 $("#map").css("width", 600).css("height", 400);
-$("#lock").css("width", 200).css("height", 300);
+$("#lock").css("width", 200).css("height", 200);
 
 $("#lock").click(function() { 
        var _this = $(this);
