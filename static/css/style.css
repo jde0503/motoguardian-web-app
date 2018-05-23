@@ -170,3 +170,8 @@ footer.footer {
     margin: 0 auto;
     width: 80%;
 }
+
+.nav-item {
+    margin-right: 5px;
+    color: white;
+}
