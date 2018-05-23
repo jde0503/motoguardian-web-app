@@ -171,7 +171,6 @@ footer.footer {
     width: 80%;
 }
 
-.nav-item {
-    margin-right: 5px;
-    color: white;
+.navbar .navbar-nav .nav-link {
+    color: #FFFFFF !important;
 }
