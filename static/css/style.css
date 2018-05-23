@@ -16,7 +16,7 @@ h6 {
 }
 
 a.navbar-brand {
-    font-size: 20px;
+    font-size: 2rem;
 }
 
 header.masthead {
@@ -89,6 +89,10 @@ header.masthead h1 {
 
 .features-icons .features-icons-item:hover .features-icons-icon i {
   font-size: 5rem;
+}
+
+.competitve-analysis {
+  padding: 3rem;
 }
 
 .testimonials {
