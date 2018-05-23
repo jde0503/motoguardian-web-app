@@ -12,7 +12,7 @@ h6 {
   font-weight: 700;
 }
 #content-block{
-  margin:30px;
+  margin:0px;
 }
 
 a.navbar-brand {
@@ -169,4 +169,9 @@ footer.footer {
 .centered {
     margin: 0 auto;
     width: 80%;
+}
+
+.nav-item {
+    margin-right: 5px;
+    color: white;
 }

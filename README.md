@@ -11,3 +11,6 @@ Project for ECE 140B - Spring 2018
 This repo contains the motoguarian web app. Different verions of it are used as submodules in the main MotoGuardian repo.
 
 Public Link: http://motoguardian.herokuapp.com
+
+URL for app using Flask: motoguardian.herokuapp.com
+URL for app using Django: motoguardianapp.herokuapp.com
