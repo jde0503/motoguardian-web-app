@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<head>
+	<title>About Our Team</title>
+
+	<!-- Custom styles for this template -->
+    <link href="{% static 'css/about.css' %}" rel="stylesheet">
+</head>
+<body>
+
+	<div class="row">
+		<div class="column">
+			<div class ="card">
+				<img class="picture" src="../static/img/TBach.jpg" alt="Triet">
+				<div>
+					<h2 class="center">Triet Bach</h2>
+					<p class="title center">Computer Engineer</p>
+					<p class="center">trietmbach@gmail.com</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="column">
+			<div class ="card">
+				<img class="picture" src="../static/img/JEscobar.jpg" alt="Josh">
+				<div>
+					<h2 class="center">Joshua Escobar</h2>
+					<p class="title center">Electrical Engineer</p>
+					<p class="center">escobar.joshua.d@gmail.com</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="column">
+			<div class ="card">
+				<img class="picture" src="../static/img/" alt="Janet">
+				<div>
+					<h2 class="center">Janet Hoh</h2>
+					<p class="title center">Electrical Engineer</p>
+					<p class="center">Janet's Email</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="column">
+			<div class ="card">
+				<img class="picture" src="../static/img/BArucan.jpg" alt="Bronson">
+				<div>
+					<h2 class="center">Bronson Arucan</h2>
+					<p class="title center">Electrical Engineer</p>
+					<p class="center">bjarucan@gmail.com</p>
+				</div>
+			</div>
+		</div>
+
+</body>
+{% endblock %}

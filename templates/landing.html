@@ -1,71 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="MotoGuardian Landing Page">
-    <meta name="author" content="Team MotoGuardian">
-
-    <title>MotoGuardian</title>
-
-    <!-- Bootstrap JQuery library -->
-    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
-
-    <!-- Bootstrap core CSS -->
-    <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-
-    <!-- Custom fonts for this template -->
-    <link href="{{ url_for('static', filename='vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ url_for('static', filename='vendor/simple-line-icons/css/simple-line-icons.css') }}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-
-    <!-- Custom styles for this template -->
-    <link href="{{ url_for('static', filename='css/landing-page.css') }}" rel="stylesheet">
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-  </head>
-
-  <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-light bg-light static-top">
-      <div class="container">
-        <a class="navbar-brand" href="#"> <img src="{{ url_for('static', filename='img/logo.jpg') }}" id="logo"> MotoGuardian</a>
-      </div>
-    </nav>
-
-    <!-- Masthead -->
-    <header class="masthead text-white text-center">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row">
-          <div class="col-xl-9 mx-auto">
-            <h1 class="mb-5">
-                You can count on us to protect your life and your property. <br><br> Make a
-                commitment-free reservation to pre-order today!
-            </h1>
-          </div>
-          <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-            <form>
-              <div class="form-row">
-                <div class="col-12 col-md-9 mb-2 mb-md-0">
-                  <input id="email" type="email" class="form-control form-control-lg" placeholder="Enter your email">
-                </div>
-                <div class="col-12 col-md-3">
-                  <button type="submit" class="btn btn-block btn-lg btn-primary submit">Sign up</button>
-                </div>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+        <!-- Masthead -->
+        <header class="masthead text-white text-center">
+          <div class="overlay"></div>
+          <div class="container">
+            <div class="row">
+              <div class="col-xl-9 mx-auto">
+                <h1 class="mb-5" style="font-size:30px ">
+                    You can count on us to protect your life and your property. <br><br>
+                    {{form.email}} Make a commitment-free reservation to pre-order today!
+                </h1>
               </div>
-            </form>
+              <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+    <!-- EMAIL INPUT FORM  -->
+                <form id="email-form"> {% csrf_token %}
+                  <div class="form-row">
+                    <div class="col-12 col-md-9 mb-2 mb-md-0">
+                      <input id="email-input" type="email" class="form-control form-control-lg" placeholder="Enter your email">
+                    </div>
+                    <div class="col-12 col-md-3">
+                      <button type="submit" class="btn btn-block btn-lg btn-primary submit">Subscribe</button>
+                    </div>
+                  </div>
+                </form>
+
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </header>
+        </header>
 
     <!-- Icons Grid -->
     <section class="features-icons bg-light text-center">
       <div class="container">
         <div class="row">
+          <div class="col-lg-4">
+            <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+              <div class="features-icons-icon d-flex">
+              <i class="icon-lock m-auto text-primary"></i>
+              </div>
+              <h3>Powerful Sensors</h3>
+              <p class="lead mb-0">Network of sensors to guarantee maximum safety and anti-theft capabilities.</p>
+            </div>
+          </div>
           <div class="col-lg-4">
             <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
               <div class="features-icons-icon d-flex">
@@ -78,19 +55,10 @@
           <div class="col-lg-4">
             <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
               <div class="features-icons-icon d-flex">
-                <i class="icon-lock m-auto text-primary"></i>
-              </div>
-              <h3>Powerful Sensors</h3>
-              <p class="lead mb-0">Network of sensors to guarantee maximum safety and anti-theft capabilities.</p>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-              <div class="features-icons-icon d-flex">
                 <i class="icon-check m-auto text-primary"></i>
               </div>
               <h3>Intuitive Use</h3>
-              <p class="lead mb-0">Plug-and-play installation with seamless app integration.</p>
+              <p class="lead mb-0">Plug-and-play installation with seamless website integration.</p>
             </div>
           </div>
         </div>
@@ -102,7 +70,7 @@
       <div class="container-fluid p-0">
         <div class="row no-gutters">
 
-          <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url( {{ url_for('static', filename='img/bg-showcase-1.jpg') }} );"></div>
+          <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url( {% static 'img/bg-showcase-1.jpg' %} );"></div>
           <div class="col-lg-6 order-lg-1 my-auto showcase-text">
             <h2>Crash Detection and Automatic Emergency Response</h2>
             <p class="lead mb-0">
@@ -113,7 +81,7 @@
           </div>
         </div>
         <div class="row no-gutters">
-          <div class="col-lg-6 text-white showcase-img" style="background-image: url( {{ url_for('static', filename='img/bg-showcase-2.jpg') }} );"></div>
+          <div class="col-lg-6 text-white showcase-img" style="background-image: url( {% static 'img/bg-showcase-2.jpg' %} );"></div>
           <div class="col-lg-6 my-auto showcase-text">
             <h2>Theft Prevention and Property Recovery</h2>
             <p class="lead mb-0">
@@ -130,6 +98,22 @@
       </div>
     </section>
 
+    <section class="showcase">
+      <div class="container">
+        <br>
+        <div class="row justify-content-center">
+          <h2>How do we compare to our competitors?</h1>
+        </div>
+
+        <div class="row justify-content-center">
+          <img class="image-responsive" src="{% static 'img/swot.jpg' %}" style="width:500px; height:600px;">
+        </div>
+      </div>
+
+
+    </section>
+
+
     <!-- Testimonials -->
     <section class="testimonials text-center bg-light">
       <div class="container">
@@ -137,7 +121,7 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-              <img class="img-fluid rounded-circle mb-3" src="{{ url_for('static', filename='img/testimonials-2.jpg') }}" alt="">
+              <img class="img-fluid rounded-circle mb-3" src="{% static 'img/testimonials-2.jpg' %}" alt="">
               <h5>Rick G.</h5>
               <p class="font-weight-light mb-0">"This is the necessary and obvious solution."</p>
             </div>
@@ -146,46 +130,4 @@
       </div>
     </section>
 
-    <!-- Call to Action -->
-    <section class="call-to-action text-white text-center">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row">
-          <div class="col-xl-9 mx-auto">
-            <h2 class="mb-4">Ready to get started? Sign up now!</h2>
-          </div>
-          <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-            <form>
-              <div class="form-row">
-                <div class="col-12 col-md-9 mb-2 mb-md-0">
-                  <input type="email" class="form-control form-control-lg" placeholder="Enter your email">
-                </div>
-                <div class="col-12 col-md-3">
-                  <button type="submit" class="btn btn-block btn-lg btn-primary submit">Sign up</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer bg-light">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
-            <p class="text-muted small mb-4 mb-lg-0">&copy; MotoGuardian 2018. All Rights Reserved.</p>
-          </div>
-          <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
-          </div>
-        </div>
-      </div>
-    </footer>
-
-    <!-- Custom JavaScript -->
-    <script src="{{ url_for('static', filename='js/landing_cta.js') }}"></script>
-
-  </body>
-
-</html>
+{% endblock %}
