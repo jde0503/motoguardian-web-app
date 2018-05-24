@@ -204,3 +204,12 @@ footer.footer {
 .navbar .navbar-nav .nav-link {
     color: #FFFFFF !important;
 }
+
+.round {
+  border-radius: 5px;
+}
+
+.rightmargin {
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
