@@ -70,6 +70,32 @@ header.masthead h1 {
   }
 }
 
+@media (max-width: 425px){
+  .swot {
+    width: 1em;
+    height: 1em;
+  }
+  .compHead {
+    font-size: 1em;
+  }
+  .choice {
+    font-size: .75em;
+  }
+}
+
+.swot {
+    width:75%;
+    height:75%;
+}
+
+.compHead {
+    font-size: 2em;
+}
+
+.choice {
+    font-size: 1.25em;
+}
+
 .features-icons {
   padding-top: 7rem;
   padding-bottom: 7rem;
