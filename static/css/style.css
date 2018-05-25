@@ -62,6 +62,7 @@ header.masthead h1 {
 .showcase .showcase-img {
   min-height: 30rem;
   background-size: cover;
+  background-position: 50% 50%;
 }
 
 @media (min-width: 768px) {
@@ -210,6 +211,5 @@ footer.footer {
 }
 
 .rightmargin {
-  margin-right: 5px;
-  margin-bottom: 5px;
+  margin: 0px 5px 0px 0px;
 }
