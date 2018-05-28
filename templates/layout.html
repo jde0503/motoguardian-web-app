@@ -36,20 +36,18 @@
 
         <div class="collapse navbar-collapse" id="navbarToggle">
           <ul class="navbar-nav ml-auto">
-                <li class="nav-item rightmargin d-flex justify-content-center">
-                  <a class="nav-link" href="{% url 'about' %}">About Us</a>
+                <li class="nav-item rightmargin d-flex justify-content-left">
+                    <a class="nav-link" href="{% url 'about' %}">About Us</a>
                 </li>
-                <li class="nav-item rightmargin d-flex justify-content-center">
-                  <button type="button" class="btn-primary round">
-                    <a class="nav-link" href="{% url 'login' %}">Login</a>
-                  </button>
+                <li class="nav-item rightmargin d-flex justify-content-left">
+                      <button type="button" onclick="window.location.href='{% url 'register' %}'" class="btn-primary left-btn round">
+                      Sign Up
+                      </button>
+                      <button type="button" onclick="window.location.href='{% url 'login' %}'" class="btn-primary right-btn round">
+                      Login
+                      </button>
                 </li>
-                <li class="nav-item d-flex justify-content-center">
-                  <button type="button" class="btn-primary round">
-                    <a class="nav-link" href="{% url 'register' %}">Register</a>
-                  </button>
-                </li>
-          </ul>
+            </ul>
         </div>
 
       </div>
@@ -60,6 +58,7 @@
       {% block content %}
       {% endblock %}
     </div>
+
 
     <!-- Footer -->
     <footer class="footer bg-dark ">
@@ -75,7 +74,8 @@
     <script src="{% static '/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
     <!-- Custom JavaScript -->
-    <script src="{% static '/js/landing_cta.js' %}"></script>
+    {% block customJS %}
+    {% endblock %}
 
   </body>
 
