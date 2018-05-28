@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'layout.html' %}
 {% load static %}
 {% block content %}
         <!-- Masthead -->
@@ -9,8 +9,9 @@
               <div class="col-xl-9 mx-auto">
                 <h1 class="mb-5" style="font-size:30px ">
                     Our smart anti-theft and crash detection system will provide you with
-                    peace of mind on and off the road. <br><br>
-                    {{form.email}} Make a commitment-free reservation to pre-order today!
+                    peace of mind on and off the road.
+                    <br><br>
+                    Make a commitment-free reservation to pre-order today!
                 </h1>
               </div>
               <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
@@ -129,5 +130,8 @@
         </div>
       </div>
     </section>
+{% endblock %}
 
+{% block customJS %}
+    <script src="{% static '/js/landing_cta.js' %}"></script>
 {% endblock %}
