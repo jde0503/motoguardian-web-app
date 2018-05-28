@@ -8,10 +8,9 @@ $(document).on('submit','#email-form', function(e){
 			email: $('#email-input').val(),
 			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
 		},
-		
+
 	});
 	$("div.form-row").replaceWith(
 		"<span id=\"cta-ty\" style=\"font-size: 50px\">Thank you for subscribing!</span>"
 		);
 });
-
