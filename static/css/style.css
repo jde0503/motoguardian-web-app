@@ -172,6 +172,10 @@ header.masthead h1 {
   line-height: 75px;
 }
 
+.copy {
+  margin: 0 auto;
+}
+
 #logo {
   height: 8rem;
   width: auto;
