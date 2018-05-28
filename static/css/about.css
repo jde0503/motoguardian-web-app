@@ -1,7 +1,7 @@
 /* Three columns side by side */
 .column {
-    float: left;
-    width: 33%;
+    float: center;
+    width: 20%;
     margin-bottom: 16px;
 }
 
