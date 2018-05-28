@@ -28,8 +28,8 @@ DEBUG = False
 ALLOWED_HOSTS = ['motoguardian.herokuapp.com', '*']
 # ALLOWED_HOSTS = []
 
-# Application definition
 
+# Application definition
 INSTALLED_APPS = [
     'accounts',
     'django.contrib.admin',
@@ -72,21 +72,6 @@ WSGI_APPLICATION = 'MotoGuardian.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
-# LOCAL
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'motoguardianDB',
-#         'USER': 'postgres',
-#         'PASSWORD': 'motoguardianpassword',
-#         'HOST':'',
-#         'PORT':'',
-
-#     }
-# }
-
 # PRODUCTION
 DATABASES = {
     'default': {
@@ -100,9 +85,9 @@ DATABASES = {
     }
 }
 
+
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -121,15 +106,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 
@@ -145,14 +125,17 @@ USE_TZ = True
 # for HEROKU
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = os.path.join((BASE_DIR), 'static')
-
 STATIC_URL = '/static/'
 
+# URL Constants
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = 'login'
 
+
+# Email Settings
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = 'MotoGuardian <motoguardian140@gmail.com>'
 EMAIL_HOST_USER = 'motoguardian140@gmail.com'
 EMAIL_HOST_PASSWORD = 'UCSD_ECE140B'

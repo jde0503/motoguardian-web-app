@@ -10,3 +10,7 @@ interesting.
 
 Best Regards,
 The MotoGuardian Team
+
+--
+If you wish to stop receiving emails from MotoGuardian, you can unsubscribe here
+http://motoguardian.herokuapp.com/unsubscribe

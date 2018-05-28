@@ -1,22 +1,22 @@
-{% extends 'base_dashboard.html' %}
+{% extends 'layout_dashboard.html' %}
 {% load static %}
 {% block content %}
 <head>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    
+
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-    
+
   <!-- Custom styles for this template -->
   <link href="{% static 'css/style.css' %}" rel="stylesheet">
-  
+
 </head>
 <body>
 	<div class="container">
 		{% if user.is_authenticated %}
 		<h1>MotoGuardian Dashboard</h1>
 		<h2> Welcome {{ user.first_name }}!</h2>
-		
+
 		<div class="container">
 
 		  <ul class="nav nav-tabs">
@@ -45,12 +45,12 @@
 			      			<div id="map"></div>
 			      		</div>
 		      		</div>
-		      	</div>	
+		      	</div>
 		    </div>
 		    <div id="menu1" class="tab-pane fade">
 		      <h3>Notifications</h3>
 		      	<div class="container">
-		      		<p>Populated from DB</p>	
+		      		<p>Populated from DB</p>
 		      	</div>
 		    </div>
 		    <div id="menu2" class="tab-pane fade">
