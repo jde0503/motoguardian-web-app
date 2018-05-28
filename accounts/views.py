@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login
-from accounts.models import Emails
+from accounts.models import Leads
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail import send_mail, EmailMessage
 from django.urls import reverse
@@ -37,16 +37,16 @@ def register(request):
     return render(request, 'registration/register.html', {'form': f})
 
 
-def email(request):
+def email_leads(request):
     if request.method == 'POST':
         email = request.POST['email']
 
-    with open('email_body.txt', 'r') as file:
-            # create new Emails object
-        Emails.objects.create(
-            email=email
-        )
-        email = EmailMessage('MotoGuardian - Thank you!', file.read(), to=[email])
-        email.send()
+        with open('email_body.txt', 'r') as file:
+                # create new Emails object
+            Leads.objects.create(
+                email_address=email
+            )
+            email = EmailMessage('MotoGuardian - Thank you!', file.read(), to=[email])
+            email.send()
 
-        return HttpResponse('')
+            return HttpResponse('')

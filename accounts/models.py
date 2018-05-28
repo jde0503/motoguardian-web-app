@@ -1,14 +1,14 @@
 from django.db import models
 from django.utils import timezone
-import datetime
 
-# Create your models here.
 
-class Emails(models.Model):
-	
-	email = models.EmailField()
-	date_added = models.DateTimeField(default=timezone.now)
-	
-	def __str__(self):
-		return self.email
+# Create Leads Model (DB Table).
+class Leads(models.Model):
+    time_stamp = models.DateTimeField(default=timezone.now, blank=False)
+    email_address = models.EmailField(unique=True)
 
+    class Meta:
+        verbose_name_plural = "Leads"
+
+    def __str__(self):
+        return self.email_address

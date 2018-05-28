@@ -3,15 +3,14 @@ $(document).on('submit','#email-form', function(e){
 
 	$.ajax({
 		type:'POST',
-		url: 'email/',
+		url: 'email-leads/',
 		data:{
 			email: $('#email-input').val(),
 			csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
 		},
-		
+
 	});
 	$("div.form-row").replaceWith(
 		"<span id=\"cta-ty\" style=\"font-size: 50px\">Thank you for subscribing!</span>"
 		);
 });
-

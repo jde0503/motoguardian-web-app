@@ -218,6 +218,15 @@ header.masthead h1 {
     color: #FFFFFF !important;
 }
 
+
+.navbar .navbar-nav .nav-item .left-btn{
+    margin: 0rem 0.5rem 0rem 0rem;
+}
+
+.navbar .navbar-nav .nav-item .right-btn{
+    margin: 0rem 0rem 0rem 0.5rem;
+}
+
 .round {
   border-radius: 5px;
 }
