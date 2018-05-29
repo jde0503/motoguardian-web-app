@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+<head>
+	<title>Getting Started</title>
+
+	<!-- Custom styles for this template -->
+    <link href="{% static 'css/getting_started.css' %}" rel="stylesheet">
+</head>
+<body>
+
+	<div class="container">
+		<h1 class="title">Getting Started</h1>
+		<hr>
+
+		<h6 class="info">This page gives you information on getting started with your MotoGuardian and instructions on how to setup and install the device on your vehicle.</h6>
+
+		<table class="table table-bordered table-hover">
+			<tbody>
+				<th scope="row">Step 1.</th>
+				<td><img class="img-responvive pic" src="{% static 'img/a.jpg' %}" alt="Step 1"></td>
+				<td>This is the first step.</td>
+			</tbody>
+		</table>
+
+	</div>
+
+</body>
+{% endblock %}
