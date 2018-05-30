@@ -9,10 +9,26 @@
 </head>
 <body>
 
-	<div class="row">
+	<div class="container">
+		<div class="row">
+			<h1 class="meet">Meet Our Team</h1>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row justify-content-center">
+			<p class="info">We're a team of three engineers based in La Jolla, California.</p>
+		</div>
+
+		<div class="row justify-content-center">
+			<p class="info">Conceived at the University of California, San Diego, this project is our solution to improving motorcycle security.</p>
+		</div>
+	</div>
+
+	<div class="row justify-content-center">
 		<div class="column">
 			<div class ="card">
-				<img class="picture" src="../static/img/TBach.jpg" alt="Triet">
+				<img class="picture" src="{% static 'img/TBach.jpg' %}" alt="Triet">
 				<div>
 					<h2 class="center">Triet Bach</h2>
 					<p class="title center">Computer Engineer</p>
@@ -23,7 +39,7 @@
 
 		<div class="column">
 			<div class ="card">
-				<img class="picture" src="../static/img/JEscobar.jpg" alt="Josh">
+				<img class="picture" src="{% static 'img/JEscobar.jpg' %}" alt="Josh">
 				<div>
 					<h2 class="center">Joshua Escobar</h2>
 					<p class="title center">Electrical Engineer</p>
@@ -34,7 +50,7 @@
 
 		<div class="column">
 			<div class ="card">
-				<img class="picture" src="../static/img/BArucan.jpg" alt="Bronson">
+				<img class="picture" src="{% static 'img/BArucan.jpg' %}" alt="Bronson">
 				<div>
 					<h2 class="center">Bronson Arucan</h2>
 					<p class="title center">Electrical Engineer</p>
