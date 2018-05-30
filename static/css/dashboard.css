@@ -1,0 +1,41 @@
+.indexcity {
+  z-index: 9999;
+}
+
+.right {
+    right: 0 !important;
+    left: 0 !important;
+}
+
+@media only screen and (max-width: 767px) {
+    .navbar-collapse{
+      background-color:#000000;
+      position: fixed;
+      top: 0;
+      transition:all 0.8s ease-out;
+      height: 100%;
+      width: 100%;
+      left: 700px;
+    }
+    .navbar-inverse .navbar-nav>li>a {
+    color: #000;
+    }
+}
+
+#footer {
+    position: fixed;
+    height: 50px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin-bottom: 0px;
+}
+
+#ham {
+    position: fixed;
+    height: 35px;
+
+    right: 0px;
+    margin-bottom: 0px;
+}
+
