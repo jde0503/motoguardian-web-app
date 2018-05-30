@@ -236,3 +236,11 @@ header.masthead h1 {
 .rightmargin {
   margin: 0px 5px 0px 0px;
 }
+
+ul>li>a,button {
+  font-size:1.16vw;
+}
+
+ul>li>button:hover {
+  cursor: pointer;
+}

@@ -25,7 +25,54 @@
 
   <body>
 
-    <!-- Navigation -->
+    <!-- Navigation for Logged in User -->
+    {% if user.is_authenticated %} 
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'dashboard' %}">MotoGuardian</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarToggle">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item rightmargin d-flex justify-content-left">
+                <a class="nav-link" href="{% url 'about' %}">Notifications</a>
+            </li>
+            <li class="nav-item rightmargin d-flex justify-content-left">
+                <a class="nav-link" href="{% url 'about' %}">Location History</a>
+            </li>
+            <li class="nav-item rightmargin d-flex justify-content-left">
+                <a class="nav-link" href="{% url 'about' %}">Performance Statistics</a>
+            </li>
+            <li class="nav-item rightmargin d-flex justify-content-left">
+                <a class="nav-link" href="{% url 'about' %}">Profile</a>
+            </li>
+            <li class="nav-item rightmargin d-flext justify-content-left">
+                <a class="nav-link" href="{% url 'faqs' %}">Settings</a>
+            </li>
+            <li class="nav-item rightmargin d-flext justify-content-left">
+                <a class="nav-link" href="{% url 'getting_started' %}">Getting Started</a>
+            </li>
+            <!-- <li class="nav-item rightmargin d-flext justify-content-left">
+                <a class="nav-link" href="{% url 'getting_started' %}">Getting Started</a>
+            </li> -->
+          </ul>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item rightmargin d-flex justify-content-left">
+              <button type="button" onclick="window.location.href='{% url 'logout' %}'" class="btn-primary left-btn round">
+              Logout
+              </button>
+
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </nav>
+    {% else %}
+    <!-- Navigation for Anonymous User -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
       <div class="container">
         <a class="navbar-brand" href="{% url 'landing' %}">MotoGuardian</a>
@@ -35,7 +82,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarToggle">
-          <ul class="navbar-nav ml-auto">
+          <ul class="navbar-nav mr-auto">
                 <li class="nav-item rightmargin d-flex justify-content-left">
                     <a class="nav-link" href="{% url 'about' %}">About Us</a>
                 </li>
@@ -45,12 +92,15 @@
                 <li class="nav-item rightmargin d-flext justify-content-left">
                     <a class="nav-link" href="{% url 'getting_started' %}">Getting Started</a>
                 </li>
-                <li class="nav-item rightmargin d-flex justify-content-left">
-                      <button type="button" onclick="window.location.href='{% url 'register' %}'" class="btn-primary left-btn round">
-                      Sign Up
-                      </button>
-                      <button type="button" onclick="window.location.href='{% url 'login' %}'" class="btn-primary right-btn round">
+                
+            </ul>
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item rightmargin d-flex justify-content-left">
+                      <button type="button" onclick="window.location.href='{% url 'login' %}'" class="btn-primary left-btn round">
                       Login
+                      </button>
+                      <button type="button" onclick="window.location.href='{% url 'register' %}'" class="btn-primary right-btn round">
+                      Register
                       </button>
                 </li>
             </ul>
@@ -58,6 +108,7 @@
 
       </div>
     </nav>
+    {% endif %}
     <!-- End of Navigation -->
 
     <div id="content-block">
