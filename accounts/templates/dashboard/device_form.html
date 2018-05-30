@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+<head>
+	<title>MotoGuardian</title>
+
+</head>
+<body>
+	<div class="container">
+		<h1>Add Motoguardian Device</h1>
+		<form id="add_device"  method="post" action="">
+			{% csrf_token %}
+			{% if form.errors %}
+			<p>There are errors in the form!</p>
+			{% endif %}
+
+			<table>
+			{{form}}
+			</table>
+
+			<input class="btn btn-success" type="submit" value="Add Device">
+
+
+		</form>
+	</div>
+</body>
+{% endblock %}

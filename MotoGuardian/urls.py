@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from accounts import views as accounts_views
-# from dashboard import views as dashboard_views
 from django.views.generic import TemplateView
 
 urlpatterns = [
@@ -27,6 +26,10 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('register/', accounts_views.register, name='register'),
     path('dashboard/', accounts_views.dashboard, name='dashboard'),
-    # path('map/', TemplateView.as_view(template_name="map.html"),name="map"),
+    # path('dashboard/devices/', accounts_views.devices, name='devices'),
+    path('dashboard/devices/add/', accounts_views.add_device, name='add_device'),
+    # path('dashboard/profile/', accounts_views.ProfileView.as_view(), name='profile'),
+    # path('dashboard/profile/edit/',accounts_views.ProfileCreate.as_view(), name='profile-edit'),
+
 
 ]

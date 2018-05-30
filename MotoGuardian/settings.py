@@ -23,10 +23,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'y2p$ii*otrd!lry*y0w@!hlxwm6#8a+d$2v)p&vrbl81y8*1p5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['motoguardian.herokuapp.com', '*']
-# ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['motoguardian.herokuapp.com', '*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -72,6 +72,19 @@ WSGI_APPLICATION = 'MotoGuardian.wsgi.application'
 
 
 # Database
+# LOCAL
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'motoguardianDB',
+#         'USER': 'postgres',
+#         'PASSWORD': 'motoguardianpassword',
+#         'HOST':'',
+#         'PORT':'5432',
+
+#     }
+# }
+
 # PRODUCTION
 DATABASES = {
     'default': {
@@ -117,20 +130,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 # for LOCAL testing
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static"),
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
 
-# ]
+]
 
 # for HEROKU
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_ROOT = os.path.join((BASE_DIR), 'static')
+# STATIC_ROOT = os.path.join((BASE_DIR), 'static')
 STATIC_URL = '/static/'
 
 # URL Constants
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = 'login'
-
 
 # Email Settings
 EMAIL_USE_TLS = True
@@ -139,3 +151,7 @@ EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = 'MotoGuardian <motoguardian140@gmail.com>'
 EMAIL_HOST_USER = 'motoguardian140@gmail.com'
 EMAIL_HOST_PASSWORD = 'UCSD_ECE140B'
+
+# AUTH_USER_MODEL = 'accounts.Device'
+
+

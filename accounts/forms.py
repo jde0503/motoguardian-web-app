@@ -1,6 +1,7 @@
-from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
+from .models import Device
 from django.core.exceptions import ValidationError
 from django.contrib.auth import (
     authenticate,
@@ -8,6 +9,7 @@ from django.contrib.auth import (
     login,
     logout,
     )
+from django.forms import ModelForm
 
 
 class CustomUserCreationForm(forms.Form):
@@ -19,7 +21,7 @@ class CustomUserCreationForm(forms.Form):
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
     #phone_number for arduino
     def clean_username(self):
-        username = self.cleaned_data['username'].lower()
+        username = self.cleaned_data['username']
         r = User.objects.filter(username=username)
         if r.count():
             raise  ValidationError("Username already exists")
@@ -50,6 +52,13 @@ class CustomUserCreationForm(forms.Form):
             last_name = self.cleaned_data['last_name'].capitalize()
         )
         return user
+
+class DeviceForm(ModelForm):
+    class Meta:
+        model = Device
+        fields = ['mg_imei','mg_phone','year','make',
+        'model','color','cellphone','emergency_name','emergency_number',
+        'sensitivity','trip_tracking','current_location','anti_theft']
 
 
 
