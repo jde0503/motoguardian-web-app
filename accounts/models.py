@@ -40,12 +40,11 @@ class Device(models.Model):
 		return self.mg_imei
 
 class Trip(models.Model):
-	device = models.ForeignKey(Device,on_delete=models.CASCADE,default=1)
-	# user = models.ForeignKey(Device,on_delete=models.CASCADE,default=1)
 	time_stamp = models.DateTimeField(default=timezone.now, blank=False)
 	distance_traveled = models.CharField(max_length=50)
 	max_speed = models.CharField(max_length=50)
 	max_leanAngle = models.CharField(max_length=50)
+	device = models.ForeignKey(Device,on_delete=models.CASCADE,default=1)
 	
 	def __str__(self):
 		return '%s - '+ '%s' % (self.user, self.device)

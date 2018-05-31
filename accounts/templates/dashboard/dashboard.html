@@ -12,15 +12,96 @@
  -->
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		{% if user.is_authenticated %}
-		<h1 style="font-size: 4vw">MotoGuardian Dashboard</h1>
-		<h2 style="font-size: 2vw"> Welcome {{ user.first_name }}!</h2>
-
-		
+		<h1>MotoGuardian Dashboard</h1> 
+		<h2> Welcome {{ user.first_name }}!</h2>
 		{% endif %}
-
 	</div>
+	
+
+		<div class="container">
+			<div class="row">
+			{% if devices %}
+			{% for device in devices %}
+				
+				<div class="col-sm-6">
+					<div class="card">
+					  <div class="card-header">
+						  <h3><i class="fa fa-motorcycle" aria-hidden="true"></i>
+						   MotoGuardian no. {{ forloop.counter }}</h3>
+						  <p><b>IMEI:</b> {{device.mg_imei}} —
+						  	<i class="fa fa-phone" aria-hidden="true"></i> {{ device.mg_phone }}
+							</p>
+						  
+						</div>
+					  <div class="card-body">
+					    <p class="card-text">
+					  		<b>Make:</b> {{device.make}}<br>
+					  		<b>Model:</b> {{device.model}}<br>
+					  		<b>Year:</b> {{device.year}}<br>
+					  		<b>Color:</b> {{device.color}}<br>
+					  		<b>Emergency Contact:</b> {{device.emergency_name}}
+					  		<i class="fa fa-phone" aria-hidden="true"></i>
+					  		{{device.emergency_number}}<br>
+					  		<b>Sensitivity:</b> {{device.sensitivity}}<br>
+					  		
+					  		<b>Trip Tracking:</b> 
+					  		{% if not device.trip_tracking %}
+					  		Deactivated
+					  		<i class="fa fa-times text-danger" aria-hidden="true"></i>
+					  		{% else %}
+					  		Activated
+					  		<i class="fa fa-check text-success" aria-hidden="true"></i>
+					  		{% endif %} <br>
+					  		
+					  		<b>Current_Location:</b>
+					  		{% if not device.current_location %}
+					  		Deactivated
+					  	  <i class="fa fa-times text-danger" aria-hidden="true"></i>
+					  		{% else %}
+					  		Activated
+					  		<i class="fa fa-check text-success" aria-hidden="true"></i>
+					  		{% endif %} <br>
+					  		
+					  		<b>Anti-Theft:</b> 
+					  		{% if not device.anti_theft %}
+					  		Deactivated
+					  	  <i class="fa fa-times text-danger" aria-hidden="true"></i>
+					  		{% else %}
+					  		Activated
+					  		<i class="fa fa-check text-success" aria-hidden="true"></i>
+					  		{% endif %} 
+
+					    </p>
+					    <a href="#!" class="btn btn-success">Go somewhere</a>
+
+					  </div>
+					</div>
+				</div>
+			</div>	
+			{% endfor %}
+			
+
+		</div>
+		
+
+
+			{% else %}
+				<div class="card">
+				  <div class="card-body">
+				    <h4 class="card-title">No MotoGuardians Registered</h4>
+					    <p class="card-text">
+					      "some text"
+					    </p>
+				    <a href="{% url 'add_device' %}" class="btn btn-primary">Add Device</a>
+				  </div>
+				</div>
+
+			{% endif %}
+			
+	
+
 <!-- 	<script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDG3cS8dmtfQsrObW7c5YmR1Inkf9uHvCc&callback=initMap">
     </script>

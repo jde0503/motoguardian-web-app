@@ -7,43 +7,35 @@ from django.core.mail import send_mail, EmailMessage
 from django.urls import reverse
 from .forms import CustomUserCreationForm, DeviceForm
 from django.contrib import messages
-from django.views import generic
+from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 # from .models import Profile
 from django.db import transaction
 from django.contrib.auth.models import User
+from .models import Device
 
 # from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # from django.core.urlresolvers import reverse_lazy
 
 
 # Create your views here.
-@login_required
-def dashboard(request):
-    return render(request, 'dashboard/dashboard.html')
 
-# class ProfileView(generic.ListView):
-#     template_name = 'dashboard/profile.html'
-#     context_object_name = 'settings'
 
-#     def get_queryset(self):
-#         return Profile.objects.all()
+class DashboardView(TemplateView):
+    login_required = True
+    template_name = 'dashboard/dashboard.html'
 
-# class ProfileCreate(CreateView):
-#     template_name = 'dashboard/profile_form.html'
-#     model = Profile
-#     fields = ['cellphone', 'year', 'make', 'model',
-#             'color', 'mg_imei', 'mg_phone', 'emergency_name',
-#             'emergency_number', 'sensitivity', 'trip_tracking',
-#              'current_location', 'anti_theft']
+    def get(self, request):
+        user = request.user
+        devices = Device.objects.filter(user=user)
+        args = {'devices':devices}
+        print(devices)
+        return render(request, self.template_name, args)
 
-# class ProfileUpdate(UpdateView):
-#     template_name = 'dashboard/profile_form.html'
-#     model = Profile
-#     fields = ['cellphone', 'year', 'make', 'model',
-#             'color', 'mg_imei', 'mg_phone', 'emergency_name',
-#             'emergency_number', 'sensitivity', 'trip_tracking',
-#              'current_location', 'anti_theft']
+# def dashboard(request):
+
+#     return render(request, 'dashboard/dashboard.html')
+
 
 
 def logout_view(request):
@@ -64,7 +56,8 @@ def add_device(request):
             # print(f['color'].value())
             # print(f.data['color'])
             f.save()
-            return render(request, 'dashboard/devices.html',{'form':f})
+            return redirect('dashboard')
+            # return render(request, 'dashboard/devices.html',{'form':f})
     else:
         f = DeviceForm()
     return render(request, 'dashboard/device_form.html', {'form':f})

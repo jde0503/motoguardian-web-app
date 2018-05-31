@@ -54,6 +54,7 @@ class CustomUserCreationForm(forms.Form):
         return user
 
 class DeviceForm(ModelForm):
+    
     class Meta:
         model = Device
         fields = ['mg_imei','mg_phone','year','make',

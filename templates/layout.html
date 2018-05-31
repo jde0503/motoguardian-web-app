@@ -2,138 +2,138 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="MotoGuardian Landing Page">
-    <meta name="author" content="Team MotoGuardian">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="MotoGuardian Landing Page">
+  <meta name="author" content="Team MotoGuardian">
 
-    <title>MotoGuardian</title>
+  <title>MotoGuardian</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
-    <!-- Custom fonts for this template -->
-    <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'vendor/simple-line-icons/css/simple-line-icons.css' %}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <!-- Custom fonts for this template -->
+  <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'vendor/simple-line-icons/css/simple-line-icons.css' %}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
-    <!-- Custom styles for this template -->
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+</head>
 
-  </head>
+<body>
 
-  <body>
+  <!-- Navigation for Logged in User -->
+  {% if user.is_authenticated %} 
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top navbar-fixed-top">
+    <div class="container">
 
-    <!-- Navigation for Logged in User -->
-    {% if user.is_authenticated %} 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="{% url 'dashboard' %}">MotoGuardian</a>
+      <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+      <a class="navbar-brand" href="{% url 'dashboard' %}">MotoGuardian</a>
 
-        <div class="collapse navbar-collapse" id="navbarToggle">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item rightmargin d-flex justify-content-left">
-                <a class="nav-link" href="{% url 'about' %}">Notifications</a>
-            </li>
-            <li class="nav-item rightmargin d-flex justify-content-left">
-                <a class="nav-link" href="{% url 'about' %}">Location History</a>
-            </li>
-            <li class="nav-item rightmargin d-flex justify-content-left">
-                <a class="nav-link" href="{% url 'about' %}">Performance Statistics</a>
-            </li>
-            <li class="nav-item rightmargin d-flex justify-content-left">
-                <a class="nav-link" href="{% url 'about' %}">Profile</a>
-            </li>
-            <li class="nav-item rightmargin d-flext justify-content-left">
-                <a class="nav-link" href="{% url 'faqs' %}">Settings</a>
-            </li>
-            <li class="nav-item rightmargin d-flext justify-content-left">
-                <a class="nav-link" href="{% url 'getting_started' %}">Getting Started</a>
-            </li>
-            <!-- <li class="nav-item rightmargin d-flext justify-content-left">
-                <a class="nav-link" href="{% url 'getting_started' %}">Getting Started</a>
-            </li> -->
-          </ul>
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item rightmargin d-flex justify-content-left">
-              <button type="button" onclick="window.location.href='{% url 'logout' %}'" class="btn-primary left-btn round">
-              Logout
-              </button>
+      <div class="collapse navbar-collapse" id="navbarToggle">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item rightmargin d-flex justify-content-left">
+            <a class="nav-link" href="#">Notifications</a>
+          </li>
+         <li class="nav-item rightmargin d-flex justify-content-left">
+           <a class="nav-link" href="#">Location History</a>
+         </li>
+         <li class="nav-item rightmargin d-flex justify-content-left">
+           <a class="nav-link" href="#">Performance Statistics</a>
+         </li>
+         <li class="nav-item rightmargin d-flext justify-content-left">
+           <a class="nav-link" href="{% url 'getting_started' %}">Getting Started</a>
+         </li>
+         <li class="nav-item rightmargin d-flex justify-content-left">
+           <a class="nav-link" href="#">Profile</a>
+         </li>
+         <li class="nav-item rightmargin d-flext justify-content-left">
+           <a class="nav-link" href="#">Settings</a>
+       </li>
 
-            </li>
-          </ul>
+        </ul>
+           <ul class="navbar-nav ml-auto">
+             <li class="nav-item rightmargin d-flex justify-content-left">
+               <button id="logout" type="button" onclick="window.location.href='{% url 'logout' %}'" class="btn-primary left-btn round">
+                 <i class="fa fa-power-off" aria-hidden="true"></i>
+                 Logout
+               </button>
+             </li>
+           </ul>
         </div>
 
-      </div>
-    </nav>
-    {% else %}
-    <!-- Navigation for Anonymous User -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="{% url 'landing' %}">MotoGuardian</a>
+           </div>
+         </nav>
+         {% else %}
+         <!-- Navigation for Anonymous User -->
+         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top navbar-fixed-top">
+          <div class="container">
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+            <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'landing' %}">MotoGuardian</a>
 
-        <div class="collapse navbar-collapse" id="navbarToggle">
-          <ul class="navbar-nav mr-auto">
+
+            <div class="collapse navbar-collapse" id="navbarToggle">
+              <ul class="navbar-nav mr-auto">
                 <li class="nav-item rightmargin d-flex justify-content-left">
-                    <a class="nav-link" href="{% url 'about' %}">About Us</a>
+                  <a class="nav-link" href="{% url 'about' %}">About Us</a>
                 </li>
                 <li class="nav-item rightmargin d-flext justify-content-left">
-                    <a class="nav-link" href="{% url 'faqs' %}">FAQs</a>
+                  <a class="nav-link" href="{% url 'faqs' %}">FAQs</a>
                 </li>
                 <li class="nav-item rightmargin d-flext justify-content-left">
-                    <a class="nav-link" href="{% url 'getting_started' %}">Getting Started</a>
+                  <a class="nav-link" href="{% url 'getting_started' %}">Getting Started</a>
                 </li>
                 
-            </ul>
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item rightmargin d-flex justify-content-left">
-                      <button type="button" onclick="window.location.href='{% url 'login' %}'" class="btn-primary left-btn round">
-                      Login
-                      </button>
-                      <button type="button" onclick="window.location.href='{% url 'register' %}'" class="btn-primary right-btn round">
-                      Register
-                      </button>
+              </ul>
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item rightmargin d-flex justify-content-left">
+                  <button type="button" onclick="window.location.href='{% url 'login' %}'" class="btn-primary left-btn round">
+                    Login
+                  </button>
+                  <button type="button" onclick="window.location.href='{% url 'register' %}'" class="btn-primary right-btn round">
+                    Register
+                  </button>
                 </li>
-            </ul>
+              </ul>
+            </div>
+
+          </div>
+        </nav>
+        {% endif %}
+        <!-- End of Navigation -->
+
+        <div id="content-block">
+          {% block content %}
+          {% endblock %}
         </div>
 
-      </div>
-    </nav>
-    {% endif %}
-    <!-- End of Navigation -->
 
-    <div id="content-block">
-      {% block content %}
-      {% endblock %}
-    </div>
-
-
-    <!-- Footer -->
-    <footer class="footer bg-dark ">
-      <div class="container">
-          <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
-            <p class="text-muted small mb-4 mb-lg-0">&copy; MotoGuardian 2018. All Rights Reserved.</p>
+        <!-- Footer -->
+        <footer class="footer bg-dark ">
+          <div class="container">
+            <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+              <p class="text-muted small mb-4 mb-lg-0">&copy; MotoGuardian 2018. All Rights Reserved.</p>
+            </div>
           </div>
-      </div>
-    </footer>
+        </footer>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="{% static '/vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static '/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script src="{% static '/vendor/jquery/jquery.min.js' %}"></script>
+        <script src="{% static '/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
-    <!-- Custom JavaScript -->
-    {% block customJS %}
-    {% endblock %}
+        <!-- Custom JavaScript -->
+        {% block customJS %}
+        {% endblock %}
 
-  </body>
+      </body>
 
-</html>
+      </html>
