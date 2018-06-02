@@ -8,20 +8,30 @@
 <body>
 	<div class="container">
 		<h1>Add Motoguardian Device</h1>
-		<form id="add_device"  method="post" action="">
-			{% csrf_token %}
-			{% if form.errors %}
-			<p>There are errors in the form!</p>
-			{% endif %}
+		<div class="row">
+			<div class="col-sm-6">
+				<form id="add_device"  method="post" action="">
+					{% csrf_token %}
+					{% if form.errors %}
+						<p class="text-danger" style="font-size: 12px;">There are errors in the form!</p>
+					{% endif %}
+					{% for field in form %}
+						<p>{{ field.label }}:  {{ field }} 
+							<i style="font-size: 13px;">{{ field.help_text }}</i>
+						</p>	
+						{% for error in field.errors %}
+			          		<p class="text-danger" style="font-size: 12px;">{{ error }}</p>
+			      		{% endfor %}
+				
+					{% endfor %}
 
-			<table>
-			{{form}}
-			</table>
+					<input class="btn btn-success" type="submit" value="Add">
 
-			<input class="btn btn-success" type="submit" value="Add Device">
+					
 
-
-		</form>
+				</form>
+			</div>
+		</div>
 	</div>
 </body>
 {% endblock %}
