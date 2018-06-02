@@ -59,58 +59,43 @@ class CustomUserCreationForm(forms.Form):
 
 class DeviceForm(ModelForm):
     # mg_imei = forms.CharField(label='IMEI', min_length=4, max_length=150)
-    
-
     class Meta:
         model = Device
         
-        fields = ['mg_imei','mg_phone','year','make',
-        'model','color','cellphone','emergency_name','emergency_number',
-        'sensitivity','trip_tracking','current_location','anti_theft']
-        # def clean_username(self):
-        #     mg_imei = slugify(self.cleaned_data['mg_imei'])
-        #     r = Device.objects.filter(mg_imei=mg_imei)
-        #     if r.count():
-        #         raise  ValidationError("fJNFJDNKJDNFKS")
-            
-        # def clean_imei(self,mg_imei):
-        #     mg_imei=slugify(mg_imei)
-        #     # r = Device.objects.filter(mg_imei=mg_imei)
-        #     if Device.objects.filter(mg_imei=mg_imei).exists():
-        #         raise  ValidationError("IMEI already registered")
-        #     return mg_imei
-        # def form_valid(self):
-        #     slug = slugify(self.cleaned_data['mg_imei'])
-        #     try:
-        #         question = Device.objects.get(slug=slug)
-        #     except Device.DoesNotExist:
-        #         raise ValidationError("This question already exist")
+        fields = ['first_name','last_name','cellphone','mg_imei','mg_phone','year','make',
+        'model','color','emergency_name','emergency_number',
+        'sensitivity','trip_tracking','anti_theft']
         
         labels = {
+            'first_name': 'First Name',
+            'last_name':'Last Name',
+            'cellphone':'Cellphone Number',
             'mg_imei':'IMEI',
             'mg_phone':'MotoGuardian Phone Number',
             'make': 'Make',
             'model': 'Model',
             'year': 'Year',
             'color':'Color',
-            'cellphone':'Cellphone Number',
             'emergency_name': 'Emergency Contact Name',
             'emergency_number':'Emergency Contact Phone Number',
             'sensitivity':'Sensitivity',
             'trip_tracking':'Trip Tracking',
-            'current_location':'Current Location',
-            'anti_theft':'Anti-Theft',
+            'anti_theft':'Alarm',
         }
 
         help_texts = {
             'mg_imei':'(International Mobile Equipment Identity)',
             'sensitivity':'(1-10)',
             'trip_tracking':'Check to enable this feature',
-            'current_location':'Check to enable this feature',
             'anti_theft':'Check to enable this feature',
         }
 
         widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'cellphone': forms.TextInput(attrs={'class': 'form-control'}),
+            'mg_imei': forms.TextInput(attrs={'class': 'form-control'}),
+            'mg_phone': forms.TextInput(attrs={'class': 'form-control'}),
             'mg_imei': forms.TextInput(attrs={'class': 'form-control'}),
             'mg_phone': forms.TextInput(attrs={'class': 'form-control'}),
             'make': forms.TextInput(attrs={'class': 'form-control'}),
@@ -119,7 +104,6 @@ class DeviceForm(ModelForm):
             'emergency_name': forms.TextInput(attrs={'class': 'form-control'}),
             'emergency_number': forms.TextInput(attrs={'class': 'form-control'}),
             'color': forms.TextInput(attrs={'class': 'form-control'}),
-            'cellphone': forms.TextInput(attrs={'class': 'form-control'}),
             'sensitivity': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
@@ -131,10 +115,6 @@ class DeviceForm(ModelForm):
                         'unique': ("This phone number is already registered"),
                     },
                 }
-        # error_messages = {
-        #     'mg_imei': 'This IMEI a'
-        # }
-
 
 
 

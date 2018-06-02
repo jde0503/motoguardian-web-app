@@ -9,7 +9,6 @@ from .forms import CustomUserCreationForm, DeviceForm
 from django.contrib import messages
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
-# from .models import Profile
 from django.db import transaction
 from django.contrib.auth.models import User
 from .models import Device
@@ -17,16 +16,14 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import DeviceSerializer
 from rest_framework import status
-
 from django.http import JsonResponse
-
-# from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # from django.core.urlresolvers import reverse_lazy
 
 
 # Create your views here.
 
-
+#Renders the Dashboard
 class DashboardView(TemplateView):
     login_required = True
     template_name = 'dashboard/dashboard.html'
@@ -39,19 +36,15 @@ class DashboardView(TemplateView):
         return render(request, self.template_name, args)
 
 
-
-# def get_settings(request, mg_imei):
-#     data = Device.objects.filter(mg_imei=mg_imei)
-#     return JsonResponse(data)
-
 class DeviceSettings(APIView):
-
     def get(self,request):
         query = request.GET.get('mg_imei')
         devices = Device.objects.filter(mg_imei=query)
+ 
+       
         serializer = DeviceSerializer(devices, many=True)
         # return Response(serializer.data)
-        return JsonResponse(serializer.data, safe=False)
+        return JsonResponse(serializer.data[0], safe=False)
 
     def post(self,request):
         pass
@@ -81,6 +74,9 @@ def add_device(request):
         f = DeviceForm()
     return render(request, 'dashboard/device_form.html', {'form':f})
 
+class DeviceUpdate(UpdateView):
+    model = Device
+    # fields
 
 
 

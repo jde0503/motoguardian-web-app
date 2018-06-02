@@ -44,6 +44,7 @@
 					  <div class="card-header">
 						  <h3><i class="fa fa-motorcycle" aria-hidden="true"></i>
 						   MotoGuardian no. {{ forloop.counter }}</h3>
+						
 						  <p><b>IMEI:</b> {{device.mg_imei}} —
 						  	<i class="fa fa-phone" aria-hidden="true"></i> {{ device.mg_phone }}
 							</p>
@@ -51,6 +52,7 @@
 						</div>
 					  <div class="card-body">
 					    <p class="card-text">
+					    	<b>Rider Name: </b>{{ device.first_name }} {{ device.last_name }}<br>
 					  		<b>Make:</b> {{device.make}}<br>
 					  		<b>Model:</b> {{device.model}}<br>
 					  		<b>Year:</b> {{device.year}}<br>
@@ -69,16 +71,9 @@
 					  		<i class="fa fa-check text-success" aria-hidden="true"></i>
 					  		{% endif %} <br>
 					  		
-					  		<b>Current_Location:</b>
-					  		{% if not device.current_location %}
-					  		Deactivated
-					  	  <i class="fa fa-times text-danger" aria-hidden="true"></i>
-					  		{% else %}
-					  		Activated
-					  		<i class="fa fa-check text-success" aria-hidden="true"></i>
-					  		{% endif %} <br>
+
 					  		
-					  		<b>Anti-Theft:</b> 
+					  		<b>Alarm:</b> 
 					  		{% if not device.anti_theft %}
 					  		Deactivated
 					  	  <i class="fa fa-times text-danger" aria-hidden="true"></i>
