@@ -6,8 +6,6 @@ html {
 
 body {
   font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  margin-bottom: 75px;
-  padding-top:85px;
 }
 
 h1,
@@ -187,17 +185,12 @@ header.masthead h1 {
     width: 450px;
     margin: auto;
 }
+
 /* Always set the map height explicitly to define the size of the div
  * element that contains the map. */
 #map {
   height: 100%;
 }
-/* Optional: Makes the sample page fill the window. */
-/*html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}*/
 
 #latlng {
   width: 225px;
@@ -239,7 +232,7 @@ header.masthead h1 {
 }
 
 ul>li>a{
-  font-size:13px;
+  font-size:15px;
 }
 
 button#logout{
@@ -248,4 +241,13 @@ button#logout{
 
 ul>li>button:hover {
   cursor: pointer;
+}
+
+#login {
+  margin-top: 80px;
+}
+
+#loginTitle {
+  margin-top: 15px;
+  font-size: 2em;
 }
