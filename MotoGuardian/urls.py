@@ -29,10 +29,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('register/', accounts_views.register, name='register'),
     path('dashboard/', DashboardView.as_view(), name='dashboard'),
-    # path('dashboard/devices/', accounts_views.devices, name='devices'),
     path('dashboard/add-device/', accounts_views.add_device, name='add-device'),
-    # path('dashboard/profile/', accounts_views.ProfileView.as_view(), name='profile'),
-    # path('dashboard/profile/edit/',accounts_views.ProfileCreate.as_view(), name='profile-edit'),
 
 
 ]
