@@ -30,6 +30,6 @@ urlpatterns = [
     path('register/', accounts_views.register, name='register'),
     path('dashboard/', DashboardView.as_view(), name='dashboard'),
     path('dashboard/add-device/', accounts_views.add_device, name='add-device'),
-
+    
 
 ]
