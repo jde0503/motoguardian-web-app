@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login
 from accounts.models import Leads
@@ -13,6 +13,12 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib.auth.models import User
 from .models import Device
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .serializers import DeviceSerializer
+from rest_framework import status
+
+# from django.http import JsonResponse
 
 # from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # from django.core.urlresolvers import reverse_lazy
@@ -32,10 +38,22 @@ class DashboardView(TemplateView):
         print(devices)
         return render(request, self.template_name, args)
 
-# def dashboard(request):
 
-#     return render(request, 'dashboard/dashboard.html')
 
+# def get_settings(request, mg_imei):
+#     data = Device.objects.filter(mg_imei=mg_imei)
+#     return JsonResponse(data)
+
+class DeviceSettings(APIView):
+
+    def get(self,request):
+        query = request.GET.get('mg_imei')
+        devices = Device.objects.filter(mg_imei=query)
+        serializer = DeviceSerializer(devices, many=True)
+        return Response(serializer.data)
+
+    def post(self,request):
+        pass
 
 
 def logout_view(request):

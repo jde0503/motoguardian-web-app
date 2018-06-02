@@ -18,6 +18,7 @@ from django.urls import path, include
 from accounts import views as accounts_views
 from django.views.generic import TemplateView
 from accounts.views import DashboardView
+from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,6 +31,11 @@ urlpatterns = [
     path('register/', accounts_views.register, name='register'),
     path('dashboard/', DashboardView.as_view(), name='dashboard'),
     path('dashboard/add-device/', accounts_views.add_device, name='add-device'),
-    
+    path('device-settings/',accounts_views.DeviceSettings.as_view()),
+    # path('device-settings/<mg_imei>/',accounts_views.DeviceSettings.as_view()),
+
+    # path('device-settings/<int:mg_imei>/',accounts_views.get_settings, name='device-settings'),
 
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
