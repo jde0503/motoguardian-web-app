@@ -18,7 +18,7 @@ from rest_framework.response import Response
 from .serializers import DeviceSerializer
 from rest_framework import status
 
-# from django.http import JsonResponse
+from django.http import JsonResponse
 
 # from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # from django.core.urlresolvers import reverse_lazy
@@ -35,7 +35,7 @@ class DashboardView(TemplateView):
         user = request.user
         devices = Device.objects.filter(user=user)
         args = {'devices':devices}
-        print(devices)
+        # print(devices)
         return render(request, self.template_name, args)
 
 
@@ -50,7 +50,8 @@ class DeviceSettings(APIView):
         query = request.GET.get('mg_imei')
         devices = Device.objects.filter(mg_imei=query)
         serializer = DeviceSerializer(devices, many=True)
-        return Response(serializer.data)
+        # return Response(serializer.data)
+        return JsonResponse(serializer.data, safe=False)
 
     def post(self,request):
         pass
