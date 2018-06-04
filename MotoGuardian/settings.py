@@ -26,7 +26,6 @@ SECRET_KEY = 'y2p$ii*otrd!lry*y0w@!hlxwm6#8a+d$2v)p&vrbl81y8*1p5'
 DEBUG = True
 
 ALLOWED_HOSTS = ['motoguardian.herokuapp.com', '*']
-# ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -38,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.staticfiles'
 ]
 
 MIDDLEWARE = [
@@ -132,8 +131,7 @@ USE_TZ = True
 
 # for LOCAL testing
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-
+    os.path.join(BASE_DIR, "static")
 ]
 
 # for HEROKU
@@ -154,5 +152,3 @@ EMAIL_HOST_USER = 'motoguardian140@gmail.com'
 EMAIL_HOST_PASSWORD = 'UCSD_ECE140B'
 
 # AUTH_USER_MODEL = 'accounts.Device'
-
-
