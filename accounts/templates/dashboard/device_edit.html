@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div class="container">
-		<h1>Edit Motoguardian Device</h1>
+		<h1>Add Motoguardian Device</h1>
 		<div class="row">
 			<div class="col-sm-6">
 				<form id="add_device"  method="post" action="">
@@ -25,11 +25,15 @@
 				
 					{% endfor %}
 
-					<input class="btn btn-success" type="submit" value="Add">
-
-					
-
+					<input class="btn btn-success" type="submit" value="Save">
 				</form>
+				<br>
+				<a href="{% url 'device-delete' device.mg_imei %}">
+					<button class="btn btn-danger">
+						<i class="fa fa-trash" aria-hidden="true"></i> Delete this device
+
+					</button>
+				</a>
 			</div>
 		</div>
 	</div>

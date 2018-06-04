@@ -42,53 +42,45 @@
 				<div class="col-sm-6">
 					<div class="card">
 					  <div class="card-header">
-						  <h3><i class="fa fa-motorcycle" aria-hidden="true"></i>
-						   MotoGuardian no. {{ forloop.counter }}</h3>
-						  <p><b>IMEI:</b> {{device.mg_imei}} —
-						  	<i class="fa fa-phone" aria-hidden="true"></i> {{ device.mg_phone }}
-							</p>
+						  	<a href="{% url 'device-detail' device.mg_imei %}">
+							  <h3><i class="fa fa-motorcycle" aria-hidden="true"></i>
+							   MotoGuardian no. {{ forloop.counter }}</h3>
+							</a>
+						<b>	 
+							<i class="fa fa-user" aria-hidden="true"></i>
+							 	{{ device.first_name }}'s 
+							
+							{{device.year}} {{device.make}}  {{device.model}}
+						</b>
 						  
 						</div>
 					  <div class="card-body">
 					    <p class="card-text">
-					  		<b>Make:</b> {{device.make}}<br>
-					  		<b>Model:</b> {{device.model}}<br>
-					  		<b>Year:</b> {{device.year}}<br>
-					  		<b>Color:</b> {{device.color}}<br>
-					  		<b>Emergency Contact:</b> {{device.emergency_name}}
-					  		<i class="fa fa-phone" aria-hidden="true"></i>
-					  		{{device.emergency_number}}<br>
-					  		<b>Sensitivity:</b> {{device.sensitivity}}<br>
+					    	
 					  		
-					  		<b>Trip Tracking:</b> 
+					  	
+					  		
+					  		<b>Status:</b> 
 					  		{% if not device.trip_tracking %}
-					  		Deactivated
-					  		<i class="fa fa-times text-danger" aria-hidden="true"></i>
+					  		<b class="text-danger">Disarmed</b>
+					  		<i class="fa fa-unlock text-danger" aria-hidden="true"></i>
 					  		{% else %}
-					  		Activated
-					  		<i class="fa fa-check text-success" aria-hidden="true"></i>
+					  		<b class="text-success">Armed</b>
+							<i class="fa fa-lock text-success" aria-hidden="true"></i>
 					  		{% endif %} <br>
 					  		
-					  		<b>Current_Location:</b>
-					  		{% if not device.current_location %}
-					  		Deactivated
-					  	  <i class="fa fa-times text-danger" aria-hidden="true"></i>
-					  		{% else %}
-					  		Activated
-					  		<i class="fa fa-check text-success" aria-hidden="true"></i>
-					  		{% endif %} <br>
+
 					  		
-					  		<b>Anti-Theft:</b> 
-					  		{% if not device.anti_theft %}
-					  		Deactivated
-					  	  <i class="fa fa-times text-danger" aria-hidden="true"></i>
-					  		{% else %}
-					  		Activated
-					  		<i class="fa fa-check text-success" aria-hidden="true"></i>
-					  		{% endif %} 
+					  		<b>Current Location:</b> <br>
+
+					  		<b>Theft Alerts: </b> 
+					  		 
 
 					    </p>
-					    <a href="#" class="btn btn-success">Go somewhere</a>
+					    <a href="{% url 'device-detail' device.mg_imei %}" class=card-link btn btn-success">
+					    	<i class="fa fa-info-circle" aria-hidden="true"></i> More Info
+					    </a>
+					   
 
 					  </div>
 					</div>
