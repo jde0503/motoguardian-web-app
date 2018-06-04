@@ -20,11 +20,6 @@ from django.http import JsonResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
 
-# from django.core.urlresolvers import reverse_lazy
-
-
-# Create your views here.
-
 #Renders the Dashboard
 class DeviceView(TemplateView):
     login_required = True
@@ -51,36 +46,6 @@ class DashboardView(ListView):
         user = self.request.user
         return Device.objects.filter(user=user)
 
-# when clicked on ,shows the info on each device (notifications, location history, statistics, etc.) 
-# class DeviceView(DetailView):
-#     model = Device
-#     template_name = 'dashboard/device.html'
-#     context_object_name = 'devices'
-#     # pk_url_kwarg = "mg_imei"
-
-
-
-class DeviceSettings(APIView):
-    def get(self,request):
-        query = request.GET.get('mg_imei')
-        devices = Device.objects.filter(mg_imei=query)
- 
-       
-        serializer = DeviceSerializer(devices, many=True)
-        # return Response(serializer.data)
-        return JsonResponse(serializer.data[0], safe=False)
-
-    def post(self,request):
-        pass
-
-
-def logout_view(request):
-    logout(request)
-    return render(request, 'landing.html', {})
-
-# def devices(request):
-#     User.objects.get(username=the_username).pk
-    
 @login_required
 def add_device(request):
     if request.method == 'POST':
@@ -89,16 +54,14 @@ def add_device(request):
             new_device = f.save(commit=False)
             new_device.user=request.user
             new_device.save()
-            # print(f['color'].value())
-            # print(f.data['color'])
             f.save()
             return redirect('dashboard')
-            # return render(request, 'dashboard/devices.html',{'form':f})
     else:
         f = DeviceForm()
     return render(request, 'dashboard/device_form.html', {'form':f})
 
 class DeviceUpdate(SuccessMessageMixin,UpdateView):
+    login_required = True
     model = Device
     template_name = 'dashboard/device_edit.html'
    
@@ -116,22 +79,30 @@ class DeviceUpdate(SuccessMessageMixin,UpdateView):
         return reverse('device-detail',kwargs={'mg_imei': self.object.mg_imei})
 
 class DeviceDelete(DeleteView):
+    login_required = True
     model = Device
     template_name = 'dashboard/device_confirm_delete.html'
     slug_field = 'mg_imei'
     slug_url_kwarg = 'mg_imei'
     success_url = reverse_lazy('dashboard')
-    # def get_success_url(self):
-    #     return reverse_lazy('dashboard')
+
+
+class DeviceSettings(APIView):
+
+    def get(self,request):
+        query = request.GET.get('mg_imei')
+        devices = Device.objects.filter(mg_imei=query)     
+        serializer = DeviceSerializer(devices, many=True)
+        return JsonResponse(serializer.data[0], safe=False)
+
+    def post(self,request):
+        pass
     
 def register(request):
     if request.method == 'POST':
         f = CustomUserCreationForm(request.POST)
         if f.is_valid():
             f.save()
-            messages.success(request, 'Account created successfully')
-            # return redirect('register')
-            # return HttpResponseRedirect(reverse('login'))
             return render(request, 'registration/registration_success.html', {'form': f})
     else:
         f = CustomUserCreationForm()
@@ -152,6 +123,10 @@ def email_leads(request):
             email.send()
 
             return HttpResponse('')
+
+def logout_view(request):
+    logout(request)
+    return render(request, 'landing.html', {})
 
 
 

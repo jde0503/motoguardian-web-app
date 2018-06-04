@@ -5,10 +5,10 @@
 <div class="col-sm-6">
 	<div class="card">
 	  <div class="card-header">
-		  	<a href="#">
+		  	
 			  <h3><i class="fa fa-motorcycle" aria-hidden="true"></i>
 			   MotoGuardian</h3>
-			</a>
+			
 		  <p><b>IMEI:</b> {{device.mg_imei}} —
 		  	<i class="fa fa-phone" aria-hidden="true"></i> {{ device.mg_phone }}
 			</p>
@@ -48,9 +48,17 @@
 
 	    </p>
 	    
+	    <a href="#" class="card-link">
+	    	<i class="fa fa-history" aria-hidden="true"></i> Location History
+	    </a>
+	    <a href="#" class="card-link">
+	    	<i class="fa fa-line-chart" aria-hidden="true"></i> Performance Statistics
+
+	    </a>
 	    <a href="{% url 'device-update' device.mg_imei %}" class="card-link">
 			<i class="fa fa-cog" aria-hidden="true"></i> Edit
 		</a>
+
 
 	  </div>
 	</div>
