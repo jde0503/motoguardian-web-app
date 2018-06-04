@@ -7,7 +7,7 @@ from django.core.mail import send_mail, EmailMessage
 from django.urls import reverse
 from .forms import CustomUserCreationForm, DeviceForm
 from django.contrib import messages
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView, ListView
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib.auth.models import User
@@ -18,22 +18,46 @@ from .serializers import DeviceSerializer
 from rest_framework import status
 from django.http import JsonResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.messages.views import SuccessMessageMixin
+
 # from django.core.urlresolvers import reverse_lazy
 
 
 # Create your views here.
 
 #Renders the Dashboard
-class DashboardView(TemplateView):
+class DeviceView(TemplateView):
     login_required = True
-    template_name = 'dashboard/dashboard.html'
-
-    def get(self, request):
-        user = request.user
-        devices = Device.objects.filter(user=user)
+    template_name = 'dashboard/device.html'
+    
+    slug_field = 'mg_imei'
+    slug_url_kwarg = 'mg_imei'
+    
+    def get(self, request, mg_imei ):
+        # user = request.user
+        devices = Device.objects.filter(mg_imei=mg_imei)
         args = {'devices':devices}
         # print(devices)
         return render(request, self.template_name, args)
+
+# Lists all device on dashboard
+class DashboardView(ListView):
+    login_required = True
+    # model = Device
+    template_name = 'dashboard/dashboard.html'
+    context_object_name = 'devices'
+
+    def get_queryset(self):
+        user = self.request.user
+        return Device.objects.filter(user=user)
+
+# when clicked on ,shows the info on each device (notifications, location history, statistics, etc.) 
+# class DeviceView(DetailView):
+#     model = Device
+#     template_name = 'dashboard/device.html'
+#     context_object_name = 'devices'
+#     # pk_url_kwarg = "mg_imei"
+
 
 
 class DeviceSettings(APIView):
@@ -74,9 +98,28 @@ def add_device(request):
         f = DeviceForm()
     return render(request, 'dashboard/device_form.html', {'form':f})
 
-class DeviceUpdate(UpdateView):
+class DeviceUpdate(SuccessMessageMixin,UpdateView):
     model = Device
-    # fields
+    template_name = 'dashboard/device_edit.html'
+   
+    slug_field = 'mg_imei'
+    slug_url_kwarg = 'mg_imei'
+
+    success_message = 'Device settings successfully saved!'
+
+    fields = ['first_name','last_name','cellphone','mg_imei','mg_phone','year','make',
+    'model','color','emergency_name','emergency_number',
+    'sensitivity','trip_tracking','anti_theft']
+
+    # def get_success_url(self):
+    #     return reverse('device-detail')
+    def get_success_url(self):
+        # mg_imei = self.request.GET.get('mg_imei')
+        
+        return reverse('device-detail',kwargs={'mg_imei': self.object.mg_imei})
+
+    # def get_object(self):
+    #     return Device.objects.get(pk=self.request.GET.get('pk'))
 
 
 

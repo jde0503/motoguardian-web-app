@@ -42,9 +42,10 @@
 				<div class="col-sm-6">
 					<div class="card">
 					  <div class="card-header">
-						  <h3><i class="fa fa-motorcycle" aria-hidden="true"></i>
-						   MotoGuardian no. {{ forloop.counter }}</h3>
-						
+						  	<a href="{% url 'device-detail' device.mg_imei %}">
+							  <h3><i class="fa fa-motorcycle" aria-hidden="true"></i>
+							   MotoGuardian no. {{ forloop.counter }}</h3>
+							</a>
 						  <p><b>IMEI:</b> {{device.mg_imei}} —
 						  	<i class="fa fa-phone" aria-hidden="true"></i> {{ device.mg_phone }}
 							</p>
@@ -83,7 +84,10 @@
 					  		{% endif %} 
 
 					    </p>
-					    <a href="#" class="btn btn-success">Go somewhere</a>
+					    <a href="#" class=card-link btn btn-success">
+					    	<i class="fa fa-info-circle" aria-hidden="true"></i> More Info
+					    </a>
+					   
 
 					  </div>
 					</div>

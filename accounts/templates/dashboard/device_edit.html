@@ -1,0 +1,37 @@
+{% extends 'layout_dashboard.html' %}
+{% load static %}
+{% block content %}
+<head>
+	<title>MotoGuardian</title>
+
+</head>
+<body>
+	<div class="container">
+		<h1>Add Motoguardian Device</h1>
+		<div class="row">
+			<div class="col-sm-6">
+				<form id="add_device"  method="post" action="">
+					{% csrf_token %}
+					{% if form.errors %}
+						<p class="text-danger" style="font-size: 12px;">There are errors in the form!</p>
+					{% endif %}
+					{% for field in form %}
+						<p>{{ field.label }}:  {{ field }} 
+							<i style="font-size: 13px;">{{ field.help_text }}</i>
+						</p>	
+						{% for error in field.errors %}
+			          		<p class="text-danger" style="font-size: 12px;">{{ error }}</p>
+			      		{% endfor %}
+				
+					{% endfor %}
+
+					<input class="btn btn-success" type="submit" value="Save">
+
+					
+
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+{% endblock %}

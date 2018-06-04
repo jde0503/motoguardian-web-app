@@ -59,6 +59,8 @@ class CustomUserCreationForm(forms.Form):
 
 class DeviceForm(ModelForm):
     # mg_imei = forms.CharField(label='IMEI', min_length=4, max_length=150)
+
+    
     class Meta:
         model = Device
         

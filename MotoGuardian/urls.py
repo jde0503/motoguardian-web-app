@@ -14,11 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, reverse
 from accounts import views as accounts_views
 from django.views.generic import TemplateView
 from accounts.views import DashboardView
 from rest_framework.urlpatterns import format_suffix_patterns
+# from django.urls import reverse
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,11 +32,18 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('register/', accounts_views.register, name='register'),
     path('dashboard/', DashboardView.as_view(), name='dashboard'),
-    path('dashboard/add-device/', accounts_views.add_device, name='add-device'),
-    path('device-settings/',accounts_views.DeviceSettings.as_view()),
-    # path('device-settings/<mg_imei>/',accounts_views.DeviceSettings.as_view()),
 
-    # path('device-settings/<int:mg_imei>/',accounts_views.get_settings, name='device-settings'),
+    
+    # model=myModel, success_url=reverse('success-url')
+    path('dashboard/<mg_imei>/', accounts_views.DeviceView.as_view(), name='device-detail'),
+
+    path('dashboard/add-device/', accounts_views.add_device, name='add-device'),
+    path('dashboard/<mg_imei>/edit', accounts_views.DeviceUpdate.as_view(), name='device-update'),
+    # path('dashboard/<mg_imei>/delete/', accounts_views.DeviceDelete.as_view(), name='device-delete'),
+
+    
+    # URL to GET device settings 
+    path('device-settings/',accounts_views.DeviceSettings.as_view()),
 
 ]
 
