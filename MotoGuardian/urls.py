@@ -15,9 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, reverse
-from accounts import views as accounts_views
+from accounts import views
 from django.views.generic import TemplateView
-from accounts.views import DashboardView
+from accounts.views import DashboardView,DeviceView,DeviceUpdate,DeviceDelete,DeviceSettings
 from rest_framework.urlpatterns import format_suffix_patterns
 # from django.urls import reverse
 
@@ -28,22 +28,22 @@ urlpatterns = [
     path('about/', TemplateView.as_view(template_name="about.html"), name="about"),
     path('faqs', TemplateView.as_view(template_name="faqs.html"), name="faqs"),
     path('getting_started', TemplateView.as_view(template_name="getting_started.html"), name="getting_started"),
-    path('email-leads/', accounts_views.email_leads, name='email-leads'),
+    path('email-leads/', views.email_leads, name='email-leads'),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('register/', accounts_views.register, name='register'),
-    path('dashboard/', DashboardView.as_view(), name='dashboard'),
-
+    path('register/', views.register, name='register'),
     
-    # model=myModel, success_url=reverse('success-url')
-    path('dashboard/<mg_imei>/', accounts_views.DeviceView.as_view(), name='device-detail'),
 
-    path('dashboard/add-device/', accounts_views.add_device, name='add-device'),
-    path('dashboard/<mg_imei>/edit', accounts_views.DeviceUpdate.as_view(), name='device-update'),
-    # path('dashboard/<mg_imei>/delete/', accounts_views.DeviceDelete.as_view(), name='device-delete'),
+    # Shows the dashboard for ALL devices
+    path('dashboard/', DashboardView.as_view(), name='dashboard'),
+    path('dashboard/add-device/', views.add_device, name='add-device'),
+    # Shows info for each device
+    path('dashboard/<mg_imei>/', DeviceView.as_view(), name='device-detail'),
+    path('dashboard/<mg_imei>/edit/', DeviceUpdate.as_view(), name='device-update'),
+    path('dashboard/<mg_imei>/delete/', DeviceDelete.as_view(), name='device-delete'),
 
     
     # URL to GET device settings 
-    path('device-settings/',accounts_views.DeviceSettings.as_view()),
+    path('device-settings/',DeviceSettings.as_view()),
 
 ]
 

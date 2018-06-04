@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login
 from accounts.models import Leads
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail import send_mail, EmailMessage
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from .forms import CustomUserCreationForm, DeviceForm
 from django.contrib import messages
 from django.views.generic import TemplateView, DetailView, ListView
@@ -111,18 +111,19 @@ class DeviceUpdate(SuccessMessageMixin,UpdateView):
     'model','color','emergency_name','emergency_number',
     'sensitivity','trip_tracking','anti_theft']
 
-    # def get_success_url(self):
-    #     return reverse('device-detail')
     def get_success_url(self):
-        # mg_imei = self.request.GET.get('mg_imei')
         
         return reverse('device-detail',kwargs={'mg_imei': self.object.mg_imei})
 
-    # def get_object(self):
-    #     return Device.objects.get(pk=self.request.GET.get('pk'))
-
-
-
+class DeviceDelete(DeleteView):
+    model = Device
+    template_name = 'dashboard/device_confirm_delete.html'
+    slug_field = 'mg_imei'
+    slug_url_kwarg = 'mg_imei'
+    success_url = reverse_lazy('dashboard')
+    # def get_success_url(self):
+    #     return reverse_lazy('dashboard')
+    
 def register(request):
     if request.method == 'POST':
         f = CustomUserCreationForm(request.POST)
