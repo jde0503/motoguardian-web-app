@@ -25,8 +25,8 @@ SECRET_KEY = 'y2p$ii*otrd!lry*y0w@!hlxwm6#8a+d$2v)p&vrbl81y8*1p5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-#ALLOWED_HOSTS = ['motoguardian.herokuapp.com', '*']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['motoguardian.herokuapp.com', '*']
+# ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -130,14 +130,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 # for LOCAL testing
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "static"),
 
-]
+# ]
 
 # for HEROKU
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-#STATIC_ROOT = os.path.join((BASE_DIR), 'static')
+STATIC_ROOT = os.path.join((BASE_DIR), 'static')
 STATIC_URL = '/static/'
 
 # URL Constants

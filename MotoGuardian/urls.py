@@ -25,7 +25,6 @@ urlpatterns = [
     path('about/', TemplateView.as_view(template_name="about.html"), name="about"),
     path('faqs', TemplateView.as_view(template_name="faqs.html"), name="faqs"),
     path('getting_started', TemplateView.as_view(template_name="getting_started.html"), name="getting_started"),
-    path('status', TemplateView.as_view(template_name="status.html"), name="status"),
     path('email-leads/', accounts_views.email_leads, name='email-leads'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('register/', accounts_views.register, name='register'),

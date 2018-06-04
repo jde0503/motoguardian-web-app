@@ -1,15 +1,17 @@
-// Initialize and add the map
 function initMap() {
-  // The location of JSOE
-  var jsoe = {lat: 32.881738, lng: -117.235472};
-  // The map, centered at Uluru
-  var map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 18, center: jsoe});
-  // The marker, positioned at Uluru
-  var marker = new google.maps.Marker({position: jsoe, map: map});
-}
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 8,
+          center: {lat: 32.880060, lng: -117.234014}
+        });
+        var geocoder = new google.maps.Geocoder;
+        var infowindow = new google.maps.InfoWindow;
 
-/*function geocodeLatLng(geocoder, map, infowindow) {
+        window.onload = function() {
+          geocodeLatLng(geocoder, map, infowindow);
+        }
+      }
+
+function geocodeLatLng(geocoder, map, infowindow) {
   // var input = document.getElementById('latlng').value;
   var input = '32.880060,-117.234014';
   var latlngStr = input.split(',', 2);
@@ -51,5 +53,5 @@ new DG.OnOffSwitch({
     textColorOff:'#fff',
     textOn:'ARMED',
     textOff:'Disarmed'
-}); */
+});
 
