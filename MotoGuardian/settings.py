@@ -152,3 +152,15 @@ EMAIL_HOST_USER = 'motoguardian140@gmail.com'
 EMAIL_HOST_PASSWORD = 'UCSD_ECE140B'
 
 # AUTH_USER_MODEL = 'accounts.Device'
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.IsAuthenticated',
+#     ),
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+#         'rest_framework.authentication.SessionAuthentication',
+#         'rest_framework.authentication.BasicAuthentication',
+#     ),
+# }
+
+
