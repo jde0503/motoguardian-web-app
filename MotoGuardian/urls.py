@@ -17,7 +17,16 @@ from django.contrib import admin
 from django.urls import path, include, reverse
 from accounts import views
 from django.views.generic import TemplateView
-from accounts.views import DashboardView,DeviceView,DeviceUpdate,DeviceDelete,DeviceSettings
+from accounts.views import (
+    DashboardView,
+    DeviceView,
+    DeviceUpdate,
+    DeviceDelete,
+    DeviceSettings,
+    TripAPI,
+    NotificationAPI
+
+    )
 from rest_framework.urlpatterns import format_suffix_patterns
 # from django.urls import reverse
 
@@ -44,6 +53,8 @@ urlpatterns = [
     
     # URL to GET device settings 
     path('device-settings/',DeviceSettings.as_view()),
+    path('trip/', TripAPI.as_view()),
+    path('notification/',NotificationAPI.as_view()),
 
 ]
 

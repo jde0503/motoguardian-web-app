@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login
 from accounts.models import Leads
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.mail import send_mail, EmailMessage
 from django.urls import reverse, reverse_lazy
 from .forms import CustomUserCreationForm, DeviceForm
@@ -11,14 +11,17 @@ from django.views.generic import TemplateView, DetailView, ListView
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib.auth.models import User
-from .models import Device
+from .models import Device, Trip, Notification
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import DeviceSerializer
+from .serializers import DeviceSerializer, TripSerializer, NotificationSerializer
 from rest_framework import status
 from django.http import JsonResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+
 
 #Renders the Dashboard
 class DeviceView(TemplateView):
@@ -97,7 +100,9 @@ class DeviceSettings(APIView):
 
     def post(self,request):
         pass
-    
+
+
+# User Registration View
 def register(request):
     if request.method == 'POST':
         f = CustomUserCreationForm(request.POST)
@@ -109,7 +114,7 @@ def register(request):
 
     return render(request, 'registration/register.html', {'form': f})
 
-
+# POST Email 
 def email_leads(request):
     if request.method == 'POST':
         email = request.POST['email']
@@ -123,10 +128,45 @@ def email_leads(request):
             email.send()
 
             return HttpResponse('')
-
+# Logout View
 def logout_view(request):
     logout(request)
     return render(request, 'landing.html', {})
+
+@method_decorator(csrf_exempt, name='dispatch')
+class TripAPI(APIView):
+    # def get(self, request, format=None):
+    #     query = Device.
+    #     trips = Trip.objects.all()
+    #     serializer = TripSerializer(trips, many=True)
+    #     return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = TripSerializer(data=request.data)
+        x=request.POST.get("mg_imei")
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# notification model = ['mg_imei', 'date_time', 'notification_type', 'notification_location']
+@method_decorator(csrf_exempt, name='dispatch')
+class NotificationAPI(APIView):
+    # def get(self, request, format=None):
+    #     query = Device.objects.filter(mg_imei=query)
+    #     notifications = Notification.objects.filter()
+    #     serializer = NotificationSerializer(notifications, many=True)
+    #     return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = NotificationSerializer(data=request.data)
+        print('############')
+        print(serializer)
+        print('############')
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 

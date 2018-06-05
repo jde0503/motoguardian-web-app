@@ -58,9 +58,7 @@ class CustomUserCreationForm(forms.Form):
     #     fields = ['Username', 'First Name', 'Last Name','Email', 'Password', 'Re-enter Password']
 
 class DeviceForm(ModelForm):
-    # mg_imei = forms.CharField(label='IMEI', min_length=4, max_length=150)
 
-    
     class Meta:
         model = Device
         
