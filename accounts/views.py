@@ -128,18 +128,15 @@ def email_leads(request):
             email.send()
 
             return HttpResponse('')
+
 # Logout View
 def logout_view(request):
     logout(request)
     return render(request, 'landing.html', {})
 
+
 @method_decorator(csrf_exempt, name='dispatch')
 class TripAPI(APIView):
-    # def get(self, request, format=None):
-    #     query = Device.
-    #     trips = Trip.objects.all()
-    #     serializer = TripSerializer(trips, many=True)
-    #     return Response(serializer.data)
 
     def post(self, request, format=None):
         serializer = TripSerializer(data=request.data)
@@ -149,14 +146,8 @@ class TripAPI(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# notification model = ['mg_imei', 'date_time', 'notification_type', 'notification_location']
 @method_decorator(csrf_exempt, name='dispatch')
 class NotificationAPI(APIView):
-    # def get(self, request, format=None):
-    #     query = Device.objects.filter(mg_imei=query)
-    #     notifications = Notification.objects.filter()
-    #     serializer = NotificationSerializer(notifications, many=True)
-    #     return Response(serializer.data)
 
     def post(self, request, format=None):
         serializer = NotificationSerializer(data=request.data)
@@ -167,6 +158,17 @@ class NotificationAPI(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#
+
+
+
+
+
+
+
+
+
 
 
 

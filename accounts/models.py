@@ -50,10 +50,10 @@ class Trip(models.Model):
 	lat = models.CharField(max_length=50)
 	lng = models.CharField(max_length=50)
 
-	device_IMEI = models.ForeignKey(Device,on_delete=models.CASCADE, default=1)
+	device_IMEI = models.ForeignKey(Device, to_field='mg_imei', on_delete=models.CASCADE)
 
 	def __str__(self):
-		return 'Trip #%s (%s)' % (self.trip_number, self.device_IMEI.mg_imei )
+		return 'Trip #%s (%s)' % (self.trip_number, self.device_IMEI)
 
 class Notification(models.Model):
 

@@ -53,8 +53,13 @@ urlpatterns = [
     
     # URL to GET device settings 
     path('device-settings/',DeviceSettings.as_view()),
+    # URL for POST Trips to db
     path('trip/', TripAPI.as_view()),
+        # URL for POST Notifications to db
     path('notification/',NotificationAPI.as_view()),
+
+
+    
 
 ]
 
