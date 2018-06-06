@@ -21,7 +21,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-
+import requests
 
 #Renders Info of each device
 class DeviceView(TemplateView):
@@ -53,8 +53,13 @@ class DashboardView(ListView):
         
         for device in devices:
             notifications = Notification.objects.filter(device_IMEI=device.mg_imei).latest('datetime')
-            device.lat = notifications.lat
-            device.lng = notifications.lng
+            device.lat = str(notifications.lat)
+            device.lng = str(notifications.lng)
+
+            url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=%s,%s&sensor=false' % (device.lat,device.lng)
+            json_data = requests.get(url).json()
+            location = json_data['results']
+            print(len(location))
             device.notification_type = notifications.notification_type
             if notifications.notification_type == "security_armed":
                 device.armed = True
@@ -79,8 +84,9 @@ class DashboardView(ListView):
                 device.theft = False 
 
             device.datetime = notifications.datetime
+
             device.save()
-        
+            
         args = {'devices':devices}
         return render(request, self.template_name, args)
 
@@ -186,9 +192,7 @@ class NotificationAPI(APIView):
 
     def post(self, request, format=None):
         serializer = NotificationSerializer(data=request.data)
-        print('############')
-        print(serializer)
-        print('############')
+     
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
