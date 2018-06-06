@@ -8,29 +8,29 @@
 <body>
 	<div class="container">
 		<h1>Register for an Account</h1>
-		<form id="register"  method="post" action="{% url 'register' %}">
-			{% csrf_token %}
-			
+		<div class="col-sm-6">
+			<form id="register"  method="post" action="{% url 'register' %}">
+				{% csrf_token %}
 
-			
-			{% for field in form %}
-				<p>{{ field.label }}:  {{ field }} 
-					<i style="font-size: 10px;">{{ field.help_text }}</i>
-				</p>	
-					
-					{% for error in field.errors %}
-		          <p class="text-danger" style="font-size: 12px;">{{ error }}</p>
-		      {% endfor %}
-			
-			{% endfor %}
+				{% for field in authentification_form %}
+					<p>{{ field.label }}:  {{ field }} 
+						<i style="font-size: 10px;">{{ field.help_text }}</i>
+					</p>	
+						
+						{% for error in field.errors %}
+			          <p class="text-danger" style="font-size: 12px;">{{ error }}</p>
+			      {% endfor %}
+				
+				{% endfor %}
 
-			<input class="btn btn-secondary" type="submit" value="Submit">
-			{% if form.errors %}
-				<p>There are errors in the form!</p>
+				<input class="btn btn-secondary" type="submit" value="Submit">
+				{% if form.errors %}
+					<p>There are errors in the form!</p>
 
-			{% endif %}
+				{% endif %}
 
-		</form>
+			</form>
+		</div>
 	</div>
 </body>
 {% endblock %}

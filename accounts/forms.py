@@ -14,13 +14,13 @@ from django.utils.text import slugify
 
 
 class CustomUserCreationForm(forms.Form):
-    username = forms.CharField(label='Username', min_length=4, max_length=150)
-    first_name = forms.CharField(label='First Name', min_length=2, max_length=150)
-    last_name = forms.CharField(label='Last Name', min_length=2, max_length=150)
-    email = forms.EmailField(label='Email')
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
-    #phone_number for arduino
+    username = forms.CharField(label='Username', min_length=4, max_length=150,widget=forms.TextInput(attrs={'class' : 'form-control'}))
+    first_name = forms.CharField(label='First Name', min_length=2, max_length=150,widget=forms.TextInput(attrs={'class' : 'form-control'}))
+    last_name = forms.CharField(label='Last Name', min_length=2, max_length=150,widget=forms.TextInput(attrs={'class' : 'form-control'}))
+    email = forms.EmailField(label='Email',widget=forms.TextInput(attrs={'class' : 'form-control'}))
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class' : 'form-control'}))
+    password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput(attrs={'class' : 'form-control'}))
+   
     def clean_username(self):
         username = self.cleaned_data['username'].lower()
         r = User.objects.filter(username=username)
@@ -53,9 +53,9 @@ class CustomUserCreationForm(forms.Form):
             last_name = self.cleaned_data['last_name'].capitalize()
         )
         return user
-    # class Meta:
-    #     model = User
-    #     fields = ['Username', 'First Name', 'Last Name','Email', 'Password', 'Re-enter Password']
+
+
+   
 
 class DeviceForm(ModelForm):
 
