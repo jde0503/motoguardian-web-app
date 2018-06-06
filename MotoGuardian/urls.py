@@ -28,7 +28,7 @@ from accounts.views import (
 
     )
 from rest_framework.urlpatterns import format_suffix_patterns
-# from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 
 urlpatterns = [
@@ -43,18 +43,23 @@ urlpatterns = [
     
 
     # Shows the dashboard for ALL devices
-    path('dashboard/', DashboardView.as_view(), name='dashboard'),
-    path('dashboard/add-device/', views.add_device, name='add-device'),
+    path('dashboard/', login_required(DashboardView.as_view()), name='dashboard'),
+    path('dashboard/add-device/', login_required(views.add_device), name='add-device'),
     # Shows info for each device
-    path('dashboard/<mg_imei>/', DeviceView.as_view(), name='device-detail'),
-    path('dashboard/<mg_imei>/edit/', DeviceUpdate.as_view(), name='device-update'),
-    path('dashboard/<mg_imei>/delete/', DeviceDelete.as_view(), name='device-delete'),
+    path('dashboard/<mg_imei>/', login_required(DeviceView.as_view()), name='device-detail'),
+    path('dashboard/<mg_imei>/edit/', login_required(DeviceUpdate.as_view()), name='device-update'),
+    path('dashboard/<mg_imei>/delete/', login_required(DeviceDelete.as_view()), name='device-delete'),
 
     
     # URL to GET device settings 
     path('device-settings/',DeviceSettings.as_view()),
+    # URL for POST Trips to db
     path('trip/', TripAPI.as_view()),
+        # URL for POST Notifications to db
     path('notification/',NotificationAPI.as_view()),
+
+
+    
 
 ]
 

@@ -10,23 +10,14 @@ class DeviceSerializer(serializers.ModelSerializer):
 		'sensitivity','trip_tracking','anti_theft']
 
 class TripSerializer(serializers.ModelSerializer):
-	device_IMEI = serializers.SlugRelatedField(
-	        
-	        read_only=True,
-	        slug_field='mg_imei'
-	        )
+
 	class Meta:
 		model = Trip
-		fields = ['device_IMEI', 'datetime', 'trip_number', 'speed', 'lean_angle', 'lat','lng']
+		fields = ['device_IMEI','trip_number', 'speed', 'lean_angle', 'lat','lng']
 
 class NotificationSerializer(serializers.ModelSerializer):
-	device_IMEI = serializers.SlugRelatedField(
-	        
-	        read_only=True,
-	        slug_field='mg_imei'
-	        )
 	class Meta:
 		model = Notification
-		fields = ['device_IMEI', 'datetime', 'notification_type', 'lat','lng']
+		fields = ['device_IMEI','notification_type', 'lat','lng']
 
 

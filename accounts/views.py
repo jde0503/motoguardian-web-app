@@ -23,7 +23,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 
 
-#Renders the Dashboard
+#Renders Info of each device
 class DeviceView(TemplateView):
     login_required = True
     template_name = 'dashboard/device.html'
@@ -32,22 +32,57 @@ class DeviceView(TemplateView):
     slug_url_kwarg = 'mg_imei'
     
     def get(self, request, mg_imei ):
-        # user = request.user
         devices = Device.objects.filter(mg_imei=mg_imei)
-        args = {'devices':devices}
-        # print(devices)
+        trips = Trip.objects.filter(device_IMEI=mg_imei)
+        notifications = Notification.objects.filter(device_IMEI=mg_imei)
+        args = {'devices':devices, 'trips':trips, 'notifications':notifications}
         return render(request, self.template_name, args)
 
 # Lists all device on dashboard
 class DashboardView(ListView):
     login_required = True
-    # model = Device
     template_name = 'dashboard/dashboard.html'
     context_object_name = 'devices'
 
     def get_queryset(self):
         user = self.request.user
         return Device.objects.filter(user=user)
+    def get(self, request):
+        user = self.request.user
+        devices = Device.objects.filter(user=user)
+        
+        for device in devices:
+            notifications = Notification.objects.filter(device_IMEI=device.mg_imei).latest('datetime')
+            device.lat = notifications.lat
+            device.lng = notifications.lng
+            device.notification_type = notifications.notification_type
+            if notifications.notification_type == "security_armed":
+                device.armed = True
+            elif notifications.notification_type == "security_disarmed":
+                device.armed = False
+            
+            elif notifications.notification_type == "ignition_on":
+                device.ignition = True
+            elif notifications.notification_type == "ignition_off":
+                device.ignition = False
+            else:
+                pass
+
+            if notifications.notification_type == "crash_detected":
+                device.crash = True
+            else:
+                device.crash = False 
+            
+            if notifications.notification_type == "theft_detected":
+                device.theft = True
+            else:
+                device.theft = False 
+
+            device.datetime = notifications.datetime
+            device.save()
+        
+        args = {'devices':devices}
+        return render(request, self.template_name, args)
 
 @login_required
 def add_device(request):
@@ -128,18 +163,15 @@ def email_leads(request):
             email.send()
 
             return HttpResponse('')
+
 # Logout View
 def logout_view(request):
     logout(request)
     return render(request, 'landing.html', {})
 
+
 @method_decorator(csrf_exempt, name='dispatch')
 class TripAPI(APIView):
-    # def get(self, request, format=None):
-    #     query = Device.
-    #     trips = Trip.objects.all()
-    #     serializer = TripSerializer(trips, many=True)
-    #     return Response(serializer.data)
 
     def post(self, request, format=None):
         serializer = TripSerializer(data=request.data)
@@ -149,14 +181,8 @@ class TripAPI(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# notification model = ['mg_imei', 'date_time', 'notification_type', 'notification_location']
 @method_decorator(csrf_exempt, name='dispatch')
 class NotificationAPI(APIView):
-    # def get(self, request, format=None):
-    #     query = Device.objects.filter(mg_imei=query)
-    #     notifications = Notification.objects.filter()
-    #     serializer = NotificationSerializer(notifications, many=True)
-    #     return Response(serializer.data)
 
     def post(self, request, format=None):
         serializer = NotificationSerializer(data=request.data)
@@ -167,6 +193,17 @@ class NotificationAPI(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#
+
+
+
+
+
+
+
+
+
 
 
 
