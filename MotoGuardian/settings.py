@@ -151,6 +151,7 @@ DEFAULT_FROM_EMAIL = 'MotoGuardian <motoguardian140@gmail.com>'
 EMAIL_HOST_USER = 'motoguardian140@gmail.com'
 EMAIL_HOST_PASSWORD = 'UCSD_ECE140B'
 
+TIME_ZONE = 'America/Tijuana'
 # AUTH_USER_MODEL = 'accounts.Device'
 # REST_FRAMEWORK = {
 #     'DEFAULT_PERMISSION_CLASSES': (

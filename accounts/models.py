@@ -43,12 +43,13 @@ class Device(models.Model):
 
 class Trip(models.Model):
 	
-	datetime = models.DateTimeField(default=timezone.now, blank=False)
+	datetime = models.DateTimeField(auto_now_add=True)
 	trip_number = models.CharField(max_length=150)
 	speed = models.CharField(max_length=50)
 	lean_angle = models.CharField(max_length=50)
 	lat = models.CharField(max_length=50)
 	lng = models.CharField(max_length=50)
+	
 
 	device_IMEI = models.ForeignKey(Device, to_field='mg_imei', on_delete=models.CASCADE)
 
@@ -57,15 +58,16 @@ class Trip(models.Model):
 
 class Notification(models.Model):
 
-	device_IMEI= models.ForeignKey(Device, on_delete=models.CASCADE, default=1)
-	datetime = models.DateTimeField(default=timezone.now, blank=False)
+	device_IMEI= models.ForeignKey(Device,to_field='mg_imei', on_delete=models.CASCADE, default=1)
+	datetime = models.DateTimeField(auto_now_add=True)
 	notification_type = models.CharField(max_length=150)
 	lat = models.CharField(max_length=50)
 	lng = models.CharField(max_length=50)
+
 	
 
 	def __str__(self):
-		return '%s: %s' % (self.device_IMEI.mg_imei, self.datetime)
+		return '%s: %s' % (self.device_IMEI, self.datetime)
 
 
 
