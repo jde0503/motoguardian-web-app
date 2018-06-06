@@ -8,8 +8,8 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"> -->
 
   <!-- Custom styles for this template -->
-<!--   <link href="{% static 'css/style.css' %}" rel="stylesheet">
- -->
+  <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
+
 </head>
 <body>
 	<div class="container">
@@ -65,7 +65,12 @@
 							<i class="fa fa-lock text-success" aria-hidden="true"></i>
 					  		{% endif %} <br>
 
-							<b>Current Location:</b>{{device.lat}},{{device.lng}} <br>
+							<b>Current Location:</b>
+							<div id="map"></div>
+							<script> var latVal = {{device.lat}}
+							         var lngVal = {{device.lng}}
+							</script>
+							<br>
 					  		
 					  		<b>Alerts: </b> 
 					  		{% if device.crash  %}
@@ -79,7 +84,7 @@
 
 					  		{% endif %} <br>
 					    </p>
-					    <a href="{% url 'device-detail' device.mg_imei %}" class=card-link btn btn-success">
+					    <a href="{% url 'device-detail' device.mg_imei %}" class="card-link btn btn-success">
 					    	<i class="fa fa-info-circle" aria-hidden="true"></i> More Info
 					    </a>					   
 					  </div>
@@ -104,11 +109,14 @@
 		</div>
 
 
-<!-- 	<script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDG3cS8dmtfQsrObW7c5YmR1Inkf9uHvCc&callback=initMap">
+	<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9Lg54i0EXC09HSeRSBF9OWXLdDEKNjmU&callback=initMap">
     </script>
+
+	<script src="{% static '/js/javascript.js' %}"></script>
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </body>
 {% endblock %}
