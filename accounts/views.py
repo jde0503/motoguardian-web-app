@@ -53,14 +53,17 @@ class DashboardView(ListView):
         
         for device in devices:
             notifications = Notification.objects.filter(device_IMEI=device.mg_imei).latest('datetime')
-            device.lat = str(notifications.lat)
-            device.lng = str(notifications.lng)
+            device.lat = notifications.lat
+            device.lng = notifications.lng
 
-            url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=%s,%s&sensor=false' % (device.lat,device.lng)
+            url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=%s,%s&sensor=false' % (str(device.lat),str(device.lng))
             json_data = requests.get(url).json()
-            location = json_data['results']
-            print(len(location))
+            location = json_data['results'][0]['formatted_address']
+            device.location = location
+            # device.location = location
+            
             device.notification_type = notifications.notification_type
+            
             if notifications.notification_type == "security_armed":
                 device.armed = True
             elif notifications.notification_type == "security_disarmed":
