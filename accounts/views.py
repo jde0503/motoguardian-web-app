@@ -21,7 +21,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-
+import requests
 
 #Renders Info of each device
 class DeviceView(TemplateView):
@@ -35,7 +35,18 @@ class DeviceView(TemplateView):
         devices = Device.objects.filter(mg_imei=mg_imei)
         trips = Trip.objects.filter(device_IMEI=mg_imei)
         notifications = Notification.objects.filter(device_IMEI=mg_imei)
-        args = {'devices':devices, 'trips':trips, 'notifications':notifications}
+        latest_notification = Notification.objects.filter(device_IMEI=mg_imei).latest('datetime')
+        lat_current = str(latest_notification.lat)
+        lng_current = str(latest_notification.lng)
+        url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=%s,%s&sensor=false' % (lat_current,lng_current)
+        json_data = requests.get(url).json()
+        try:
+            location = json_data['results'][0]['formatted_address']
+        except IndexError:
+            location = "waiting for Google Maps API..."
+        latest_notification.location = location
+        # print(notifications.location)
+        args = {'devices':devices, 'trips':trips, 'notifications':notifications,'latest_notification':latest_notification}
         return render(request, self.template_name, args)
 
 # Lists all device on dashboard
@@ -55,7 +66,18 @@ class DashboardView(ListView):
             notifications = Notification.objects.filter(device_IMEI=device.mg_imei).latest('datetime')
             device.lat = notifications.lat
             device.lng = notifications.lng
+
+            url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=%s,%s&sensor=false' % (str(device.lat),str(device.lng))
+            json_data = requests.get(url).json()
+            try:
+                location = json_data['results'][0]['formatted_address']
+            except IndexError:
+                location = "waiting for Google Maps API, please refresh page"
+            device.location = location
+            # device.location = location
+            
             device.notification_type = notifications.notification_type
+            
             if notifications.notification_type == "security_armed":
                 device.armed = True
             elif notifications.notification_type == "security_disarmed":
@@ -79,8 +101,9 @@ class DashboardView(ListView):
                 device.theft = False 
 
             device.datetime = notifications.datetime
+
             device.save()
-        
+            
         args = {'devices':devices}
         return render(request, self.template_name, args)
 
@@ -186,9 +209,7 @@ class NotificationAPI(APIView):
 
     def post(self, request, format=None):
         serializer = NotificationSerializer(data=request.data)
-        print('############')
-        print(serializer)
-        print('############')
+     
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
