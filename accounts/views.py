@@ -35,7 +35,18 @@ class DeviceView(TemplateView):
         devices = Device.objects.filter(mg_imei=mg_imei)
         trips = Trip.objects.filter(device_IMEI=mg_imei)
         notifications = Notification.objects.filter(device_IMEI=mg_imei)
-        args = {'devices':devices, 'trips':trips, 'notifications':notifications}
+        latest_notification = Notification.objects.filter(device_IMEI=mg_imei).latest('datetime')
+        lat_current = str(latest_notification.lat)
+        lng_current = str(latest_notification.lng)
+        url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=%s,%s&sensor=false' % (lat_current,lng_current)
+        json_data = requests.get(url).json()
+        try:
+            location = json_data['results'][0]['formatted_address']
+        except IndexError:
+            location = "waiting for Google Maps API..."
+        latest_notification.location = location
+        # print(notifications.location)
+        args = {'devices':devices, 'trips':trips, 'notifications':notifications,'latest_notification':latest_notification}
         return render(request, self.template_name, args)
 
 # Lists all device on dashboard
@@ -58,7 +69,10 @@ class DashboardView(ListView):
 
             url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=%s,%s&sensor=false' % (str(device.lat),str(device.lng))
             json_data = requests.get(url).json()
-            location = json_data['results'][0]['formatted_address']
+            try:
+                location = json_data['results'][0]['formatted_address']
+            except IndexError:
+                location = "waiting for Google Maps API, please refresh page"
             device.location = location
             # device.location = location
             

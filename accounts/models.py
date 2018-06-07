@@ -61,8 +61,8 @@ class Notification(models.Model):
 	device_IMEI= models.ForeignKey(Device,to_field='mg_imei', on_delete=models.CASCADE, default=1)
 	datetime = models.DateTimeField(auto_now_add=True)
 	notification_type = models.CharField(max_length=150)
-	lat = models.CharField(max_length=50)
-	lng = models.CharField(max_length=50)
+	lat = models.DecimalField(max_digits=20,decimal_places=10)
+	lng = models.DecimalField(max_digits=20,decimal_places=10)
 
 	
 

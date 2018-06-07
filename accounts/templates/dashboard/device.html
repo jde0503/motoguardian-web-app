@@ -35,9 +35,7 @@
 		  		Activated
 		  		<i class="fa fa-check text-success" aria-hidden="true"></i>
 		  		{% endif %} <br>
-		  		
 
-		  		
 		  		<b>Alarm:</b> 
 		  		{% if not device.anti_theft %}
 		  		Deactivated
@@ -45,7 +43,10 @@
 		  		{% else %}
 		  		Activated
 		  		<i class="fa fa-check text-success" aria-hidden="true"></i>
-		  		{% endif %} 
+		  		{% endif %} <br>
+		  		<b>Current Location: </b><br>
+		  		<i class="text-info">{{latest_notification.location}}</i><br>
+		  		<i>(last updated: {{latest_notification.datetime}})</i><br>
 
 		    </p>
 		    
