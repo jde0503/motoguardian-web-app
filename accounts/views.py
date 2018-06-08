@@ -34,7 +34,7 @@ class DeviceView(TemplateView):
     def get(self, request, mg_imei ):
         devices = Device.objects.filter(mg_imei=mg_imei)
         trips = Trip.objects.filter(device_IMEI=mg_imei)
-        notifications = Notification.objects.filter(device_IMEI=mg_imei)
+        notifications = Notification.objects.filter(device_IMEI=mg_imei).order_by('-datetime')
         latest_notification = Notification.objects.filter(device_IMEI=mg_imei).latest('datetime')
         lat_current = str(latest_notification.lat)
         lng_current = str(latest_notification.lng)
