@@ -8,7 +8,6 @@ from django.urls import reverse
 from django.conf import settings
 
 
-
 # Create Leads Model (DB Table).
 class Leads(models.Model):
     time_stamp = models.DateTimeField(default=timezone.now, blank=False)

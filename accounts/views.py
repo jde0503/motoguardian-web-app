@@ -33,9 +33,12 @@ class DeviceView(TemplateView):
     
     def get(self, request, mg_imei ):
         devices = Device.objects.filter(mg_imei=mg_imei)
-        trips = Trip.objects.filter(device_IMEI=mg_imei).order_by('-datetime')
-        notifications = Notification.objects.filter(device_IMEI=mg_imei).order_by('-datetime')
-        latest_notification = Notification.objects.filter(device_IMEI=mg_imei).latest('datetime')
+        try:
+            trips = Trip.objects.filter(device_IMEI=mg_imei).order_by('-datetime')
+            notifications = Notification.objects.filter(device_IMEI=mg_imei).order_by('-datetime')
+            latest_notification = Notification.objects.filter(device_IMEI=mg_imei).latest('datetime')
+        except (Notification.DoesNotExist,Trip.DoesNotExist):
+            return render(request, self.template_name, {'devices':devices})
         lat_current = str(latest_notification.lat)
         lng_current = str(latest_notification.lng)
         url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=%s,%s&sensor=false' % (lat_current,lng_current)
@@ -63,7 +66,11 @@ class DashboardView(ListView):
         devices = Device.objects.filter(user=user)
         
         for device in devices:
-            notifications = Notification.objects.filter(device_IMEI=device.mg_imei).latest('datetime')
+            try:
+                notifications = Notification.objects.filter(device_IMEI=device.mg_imei).latest('datetime')
+            except Notification.DoesNotExist:
+                continue
+            
             device.lat = notifications.lat
             device.lng = notifications.lng
 
@@ -113,6 +120,7 @@ def add_device(request):
         f = DeviceForm(request.POST)
         if f.is_valid():
             new_device = f.save(commit=False)
+            new_device.mg_phone = '+1' + new_device.mg_phone
             new_device.user=request.user
             new_device.save()
             f.save()
