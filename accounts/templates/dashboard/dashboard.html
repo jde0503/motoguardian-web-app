@@ -1,15 +1,8 @@
 {% extends 'layout_dashboard.html' %}
 {% load static %}
 {% block content %}
-<!-- <head>
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"> -->
-
-  <!-- Custom styles for this template -->
-  <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
-
+<head>
+	<link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
 </head>
 <body>
 	<div class="container">
@@ -68,9 +61,10 @@
 							<b>Current Location: </b> <br>
 							<i class="text-info">{{device.location}}</i>
 
-							<div id="map"></div>
-							<script> var latVal = {{device.lat}}
-							         var lngVal = {{device.lng}}
+							
+							<script> 
+								var latVal = {{device.lat}}
+							    var lngVal = {{device.lng}}
 							</script>
 							<br>
 					  		

@@ -1,0 +1,19 @@
+#map {
+  height: 350px;
+  width: 350px;
+  margin: 0 auto;
+}
+
+@media only screen and (max-width: 990px) {
+  #map {
+    height: 350px;
+    width: 350px;
+  }
+}
+
+@media only screen and (max-width: 485px) {
+  #map {
+    height: 175px;
+    width: 275px;
+  }
+}

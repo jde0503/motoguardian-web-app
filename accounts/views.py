@@ -39,6 +39,17 @@ class DeviceView(TemplateView):
             latest_notification = Notification.objects.filter(device_IMEI=mg_imei).latest('datetime')
         except (Notification.DoesNotExist,Trip.DoesNotExist):
             return render(request, self.template_name, {'devices':devices})
+        for notification in notifications:
+            latVal = str(notification.lat)
+            lngVal = str(notification.lng)
+            url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=%s,%s&sensor=false' % (latVal,lngVal)
+            json_data = requests.get(url).json()
+            try:
+                location = json_data['results'][0]['formatted_address']
+            except IndexError:
+                location = "location not available"
+            notification.location = location
+        latest_notification.location = location
         lat_current = str(latest_notification.lat)
         lng_current = str(latest_notification.lng)
         url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=%s,%s&sensor=false' % (lat_current,lng_current)
@@ -46,7 +57,7 @@ class DeviceView(TemplateView):
         try:
             location = json_data['results'][0]['formatted_address']
         except IndexError:
-            location = "waiting for Google Maps API..."
+            location = "waiting for Google Maps API. Please refresh."
         latest_notification.location = location
         # print(notifications.location)
         args = {'devices':devices, 'trips':trips, 'notifications':notifications,'latest_notification':latest_notification}

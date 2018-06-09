@@ -2,176 +2,212 @@
 {% load static %}
 {% block content %}
 {% for device in devices %}
-<!-- <div class="container"> -->
-	<div class="col-sm-6">
-		<div class="card">
-		  <div class="card-header">
-			  	
-				  <h3><i class="fa fa-motorcycle" aria-hidden="true"></i>
-				   MotoGuardian</h3>
-				
-			  <p><b>IMEI:</b> {{device.mg_imei}} —
-			  	<i class="fa fa-phone" aria-hidden="true"></i> {{ device.mg_phone }}
-				</p>
-			  
+<head>
+	<link href="{% static 'css/device.css' %}" rel="stylesheet">
+	<script src="{% static '/js/javascript.js' %}"></script>
+</head>
+<body>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-lg-6 col-md-6 col-sm-12">
+			<div class="card">
+			  <div class="card-header">
+				<div class="container-fluid">  	
+					<div class="row justify-content-between"> 
+						<div class="col-lg-8 col-md-6 col-sm-12"> 
+						  <h3><i class="fa fa-motorcycle" aria-hidden="true"></i>
+						   MotoGuardian</h3>
+					
+						  	<p><b>IMEI:</b> {{device.mg_imei}} —
+						  		<i class="fa fa-phone" aria-hidden="true"></i> {{ device.mg_phone }}
+							</p>
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-12">
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#NotificationModal">
+								<i class="fa fa-bell" aria-hidden="true"></i> Notifications
+							</button>
+						</div>
+					</div>
+				</div>  
 			</div>
-		  <div class="card-body">
-		    <p class="card-text">
-		    	<b>Rider Name: </b>{{ device.first_name }} {{ device.last_name }}<br>
-		  		<b>Make:</b> {{device.make}}<br>
-		  		<b>Model:</b> {{device.model}}<br>
-		  		<b>Year:</b> {{device.year}}<br>
-		  		<b>Color:</b> {{device.color}}<br>
-		  		<b>Emergency Contact:</b> {{device.emergency_name}}
-		  		<i class="fa fa-phone" aria-hidden="true"></i>
-		  		{{device.emergency_number}}<br>
-		  		<b>Sensitivity:</b> {{device.sensitivity}}<br>
-		  		
-		  		<b>Trip Tracking:</b> 
-		  		{% if not device.trip_tracking %}
-		  		Deactivated
-		  		<i class="fa fa-times text-danger" aria-hidden="true"></i>
-		  		{% else %}
-		  		Activated
-		  		<i class="fa fa-check text-success" aria-hidden="true"></i>
-		  		{% endif %} <br>
+			  <div class="card-body">
+			    <p class="card-text">
+			    	<b>Rider Name: </b>{{ device.first_name }} {{ device.last_name }}<br>
+			  		<b>Make:</b> {{device.make}}<br>
+			  		<b>Model:</b> {{device.model}}<br>
+			  		<b>Year:</b> {{device.year}}<br>
+			  		<b>Color:</b> {{device.color}}<br>
+			  		<b>Emergency Contact:</b> {{device.emergency_name}}
+			  		<i class="fa fa-phone" aria-hidden="true"></i>
+			  		{{device.emergency_number}}<br>
+			  		<b>Sensitivity:</b> {{device.sensitivity}}<br>
+			  		
+			  		<b>Trip Tracking:</b> 
+			  		{% if not device.trip_tracking %}
+			  		Deactivated
+			  		<i class="fa fa-times text-danger" aria-hidden="true"></i>
+			  		{% else %}
+			  		Activated
+			  		<i class="fa fa-check text-success" aria-hidden="true"></i>
+			  		{% endif %} <br>
 
-		  		<b>Alarm:</b> 
-		  		{% if not device.anti_theft %}
-		  		Deactivated
-		  	  <i class="fa fa-times text-danger" aria-hidden="true"></i>
-		  		{% else %}
-		  		Activated
-		  		<i class="fa fa-check text-success" aria-hidden="true"></i>
-		  		{% endif %} <br>
-		  		<b>Current Location: </b><br>
-		  		<i class="text-info">{{latest_notification.location}}</i><br>
-		  		<i>(last updated: {{latest_notification.datetime}})</i><br>
+			  		<b>Alarm:</b> 
+			  		{% if not device.anti_theft %}
+			  		Deactivated
+			  	  <i class="fa fa-times text-danger" aria-hidden="true"></i>
+			  		{% else %}
+			  		Activated
+			  		<i class="fa fa-check text-success" aria-hidden="true"></i>
+			  		{% endif %} <br>
+			  		<b>Current Location: </b><br>
+			  		<i class="text-info">{{latest_notification.location}}</i><br>
+			  		<i>(last updated: {{latest_notification.datetime}})</i><br>
+			  		<div id="map"></div>
+			  		<script> 
+						var latVal = {{latest_notification.lat}}
+					    var lngVal = {{latest_notification.lng}}
+					    console.log(latVal);
+					    console.log(lngVal);
+					</script>
 
-		    </p>
-		    
-		    <!-- <a href="#" class="card-link">
-		    	<i class="fa fa-history" aria-hidden="true"></i> Location History
-		    </a> -->
-		    <!-- Button trigger Trip modal -->
-		    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#TripModal">
-		    	<i class="fa fa-history" aria-hidden="true"></i> Trip History
-		    </button>
+			    </p>
+			    
+			    <!-- <a href="#" class="card-link">
+			    	<i class="fa fa-history" aria-hidden="true"></i> Location History
+			    </a> -->
+			    <div class="container-fluid">
+			    	<div class="row">
+			    		<div class="col-sm-12">
+			     			<!-- Button trigger Notification modal -->
+						     
 
-		    <!-- Trip Modal -->
-		    <div class="modal" id="TripModal" tabindex="-1" role="dialog" aria-labelledby="TripModalLabel" aria-hidden="true">
-		      <div class="modal-dialog" role="document">
-		        <div class="modal-content">
-		          <div class="modal-header">
-		            <h5 class="modal-title" id="TripModalLabel">Trip History</h5>
-		            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		              <span aria-hidden="true">&times;</span>
-		            </button>
-		          </div>
-		          <div class="modal-body">
-		            
-		            <table class="table table-hover">
-		              <thead>
-		                <tr>
-		                	<!-- 'trip_number', 'speed', 'lean_angle' -->
-		                  <th>Trip #</th>
-		                  <th>Speed</th>
-		                  <th>Lean Angle</th>
-		                  <th>Date & Time</th>
-		                </tr>
-		              </thead>
-		              <tbody>
-		              	{% for trip in trips %}
-		                <tr>
-		                  <th scope="row">{{ trip.trip_number}}</th>
-		                  <td>{{ trip.speed }}</td>
-		                  <td>{{ trip.lean_angle }}</td>
-		                  <td>{{ trip.datetime }}</td>
-		                </tr>
-		                {% endfor %}
-		              </tbody>
-		            </table>
-		
-		          </div>
-		          <div class="modal-footer">
-		            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		          </div>
-		        </div>
-		      </div>
-		    </div>
+						     <!-- Button trigger Trip modal -->
+						     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#TripModal">
+						     	<i class="fa fa-history" aria-hidden="true"></i> Trip History
+						     </button>
+					         <a href="{% url 'device-update' device.mg_imei %}">
+					         	<button  class=" btn btn-secondary">
+					     			<i class="fa fa-cog" aria-hidden="true"></i> Edit
+					     		</button>
+					         </a>
+				         </div>
+			         </div>
+			    </div>
 
-		    <!-- Button trigger Notification modal -->
-		    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#NotificationModal">
-		    	<i class="fa fa-bell" aria-hidden="true"></i> Notifications
-		    </button>
-
-		    <!-- Notification Modal -->
-		    <div class="modal" id="NotificationModal" tabindex="-1" role="dialog" aria-labelledby="NotificationModalLabel" aria-hidden="true">
-		      <div class="modal-dialog" role="document">
-		        <div class="modal-content">
-		          <div class="modal-header">
-		            <h5 class="modal-title" id="NotificationModalLabel">Notifications</h5>
-		            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		              <span aria-hidden="true">&times;</span>
-		            </button>
-		          </div>
-		          <div class="modal-body">
-		            
-		            <table class="table table-hover">
-		              <thead>
-		                <tr>
-		                	<!-- 'trip_number', 'speed', 'lean_angle' -->
-		                  <th>Date & Time</th>
-		                  <th>Notification Type</th>
-
-		                </tr>
-		              </thead>
-		              <tbody>
-		              	{% for notification in notifications %}
-		                <tr>
-		                  <th scope="row">{{ notification.datetime}}</th>
-		                 
-		                  <td>
-		                  	{% if notification.notification_type == "security_armed" %}
-		                  	MotoGuardian Armed
-		                  	<i class="fa fa-lock text-success" aria-hidden="true"></i>
-		                  	{% elif notification.notification_type == "security_disarmed" %}
-		                  	MotoGuardian Disarmed
-		                  	<i class="fa fa-unlock text-danger" aria-hidden="true"></i>
-		                  	{% elif notification.notification_type == "ignition_on" %}
-		                  	Ignition On
-		                  	{% elif notification.notification_type == "ignition_off" %}
-		                  	Ignition Off
-		                  	{% elif notification.notification_type == "crash_detected" %}
-		                  	<b class="text-danger">Crash Detected</b>
-		                  	{% elif notification.notification_type == "theft_detected" %}
-		                  	<b class="text-danger">Theft Detected</b>
-		                  	{% endif %}
-		                  </td>
-		                </tr>
-		                {% endfor %}
-		              </tbody>
-		            </table>
-		    
-		          </div>
-		          <div class="modal-footer">
-		            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		          </div>
-		        </div>
-		      </div>
-		    </div>
-
-		    <a href="{% url 'device-update' device.mg_imei %}">
-		    	<button  class=" btn btn-secondary">
-					<i class="fa fa-cog" aria-hidden="true"></i> Edit
-				</button>
-		    </a>
-		    
+			    <!-- Trip Modal -->
+			    <div class="modal fade" id="TripModal" tabindex="-1" role="dialog" aria-labelledby="TripModalLabel" aria-hidden="true">
+			      <div class="modal-dialog" role="document">
+			        <div class="modal-content">
+			          <div class="modal-header">
+			            <h5 class="modal-title" id="TripModalLabel">Trip History</h5>
+			            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			              <span aria-hidden="true">&times;</span>
+			            </button>
+			          </div>
+			          <div class="modal-body">
+			            
+			            <table class="table table-hover">
+			              <thead>
+			                <tr>
+			                	<!-- 'trip_number', 'speed', 'lean_angle' -->
+			                  <th>Trip #</th>
+			                  <th>Speed</th>
+			                  <th>Lean Angle</th>
+			                  <th>Date & Time</th>
+			                </tr>
+			              </thead>
+			              <tbody>
+			              	{% for trip in trips %}
+			                <tr>
+			                  <th scope="row">{{ trip.trip_number}}</th>
+			                  <td>{{ trip.speed }}</td>
+			                  <td>{{ trip.lean_angle }}</td>
+			                  <td>{{ trip.datetime }}</td>
+			                </tr>
+			                {% endfor %}
+			              </tbody>
+			            </table>
+			
+			          </div>
+			          <div class="modal-footer">
+			            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			          </div>
+			        </div>
+			      </div>
+			    </div>
 
 
-		  </div>
+			    <!-- Notification Modal -->
+			    <div class="modal fade" id="NotificationModal" tabindex="-1" role="dialog" aria-labelledby="NotificationModalLabel" aria-hidden="true">
+			      <div class="modal-dialog" role="document">
+			        <div class="modal-content">
+			          <div class="modal-header">
+			            <h5 class="modal-title" id="NotificationModalLabel">Notifications</h5>
+			            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			              <span aria-hidden="true">&times;</span>
+			            </button>
+			          </div>
+			          <div class="modal-body">
+			            
+			            <table class="table table-hover">
+			              <thead>
+			                <tr>
+			                	
+			                  <th>Date & Time</th>
+			                  <th>Notification Type</th>
+			                  <th>Location</th>
+
+			                </tr>
+			              </thead>
+			              <tbody>
+			              	{% for notification in notifications %}
+			                <tr>
+			                  <th scope="row">{{ notification.datetime}}</th>
+			                 
+			                  <td>
+			                  	{% if notification.notification_type == "security_armed" %}
+			                  	MotoGuardian Armed
+			                  	<i class="fa fa-lock text-success" aria-hidden="true"></i>
+			                  	{% elif notification.notification_type == "security_disarmed" %}
+			                  	MotoGuardian Disarmed
+			                  	<i class="fa fa-unlock text-danger" aria-hidden="true"></i>
+			                  	{% elif notification.notification_type == "ignition_on" %}
+			                  	Ignition On
+			                  	{% elif notification.notification_type == "ignition_off" %}
+			                  	Ignition Off
+			                  	{% elif notification.notification_type == "crash_detected" %}
+			                  	<b class="text-danger">Crash Detected</b>
+			                  	{% elif notification.notification_type == "theft_detected" %}
+			                  	<b class="text-danger">Theft Detected</b>
+			                  	{% endif %}
+			                  </td>
+			                  <td>
+			                  	{{notification.location}}
+			                  </td>
+			                </tr>
+			                {% endfor %}
+			              </tbody>
+			            </table>
+			    
+			          </div>
+			          <div class="modal-footer">
+			            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			          </div>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+			</div>
 		</div>
-	</div>
-<!-- </div> -->
+		<div class="col-lg-6 col-md-6 col-sm-12"></div>
+	</div>	
+</div>
+
 {% endfor %}
+	<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9Lg54i0EXC09HSeRSBF9OWXLdDEKNjmU&callback=initMap">
+    </script>
+
+
+</body>
 {% endblock %}
