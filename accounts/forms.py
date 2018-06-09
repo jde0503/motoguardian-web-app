@@ -94,8 +94,8 @@ class DeviceForm(ModelForm):
             'first_name': forms.TextInput(attrs={'class': 'form-control'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),
             'cellphone': forms.TextInput(attrs={'class': 'form-control'}),
-            'mg_imei': forms.TextInput(attrs={'class': 'form-control','placeholder': '15 digit'}),
-            'mg_phone': forms.TextInput(attrs={'class': 'form-control'}),
+            'mg_imei': forms.TextInput(attrs={'class': 'form-control','placeholder': '15 digits'}),
+            'mg_phone': forms.TextInput(attrs={'class': 'form-control','placeholder': '10 digits'}),
             
             'make': forms.TextInput(attrs={'class': 'form-control'}),
             'model': forms.TextInput(attrs={'class': 'form-control'}),
