@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.urls import reverse
 from django.conf import settings
-
+from django.db.models import signals
 
 # Create Leads Model (DB Table).
 class Leads(models.Model):
@@ -18,6 +18,7 @@ class Leads(models.Model):
 
     def __str__(self):
         return self.email_address
+
 
 
 class Device(models.Model):
@@ -39,6 +40,11 @@ class Device(models.Model):
 
 	def __str__(self):
 		return self.mg_imei
+
+# def edit_device(sender, instance, update_fields='', **kwargs):
+#     if update_fields
+	
+# signals.pre_save.connect(receiver=edit_device, sender=Device, update_fields = 'mg')
 
 class Trip(models.Model):
 	
