@@ -27,7 +27,7 @@ import requests
 class DeviceView(TemplateView):
     login_required = True
     template_name = 'dashboard/device.html'
-    
+    # dashboard/<mg_imei>/
     slug_field = 'mg_imei'
     slug_url_kwarg = 'mg_imei'
     

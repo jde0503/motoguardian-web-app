@@ -60,10 +60,6 @@
 							<i class="text-info">{{device.location}}</i>
 
 							
-							<script> 
-								var latVal = {{device.lat}}
-							    var lngVal = {{device.lng}}
-							</script>
 							<br>
 					  		
 					  		<b>Alerts: </b> 
@@ -91,9 +87,9 @@
 				  <div class="card-body">
 				    <h4 class="card-title">No MotoGuardians Registered</h4>
 					    <p class="card-text">
-					      "some text"
+					      
 					    </p>
-				    <a href="{% url 'add-device' %}" class="btn btn-primary">Add Device</a>
+				    <a href="{% url 'add-device' %}" class="btn btn-success">Add Device</a>
 				  </div>
 				</div>
 
@@ -107,7 +103,7 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9Lg54i0EXC09HSeRSBF9OWXLdDEKNjmU&callback=initMap">
     </script>
 
-	<script src="{% static '/js/javascript.js' %}"></script>
+	
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
