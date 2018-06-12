@@ -4,8 +4,14 @@
 
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
+  	{% if exception %}
+ 		<h1 class="display-3"><b>{{exception}}</b></h1>
+    	<p class="lead">(404)</p>
+  	{% else %}
     <h1 class="display-3"><b>This page does not exist!</b></h1>
     <p class="lead">(404)</p>
+    {% endif %}
+
   </div>
 </div>
 

@@ -23,6 +23,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 import requests
 from django.db.models import Q
+from django.http import Http404
 
 #Renders Info of each device
 class DeviceView(TemplateView):
@@ -91,18 +92,16 @@ class TripView(TemplateView):
             )
             trip_info = trip_info.latest('datetime')
             trip_info.query = 1
-
-
-
-
-
             args = {'trip':trip_number, 'distinct_trip':distinct_trip, 'trip_info':trip_info}
             return render(request, self.template_name, args)
 
         # else get query set of most recent trip
         else:
             #get lastest trip number
-            latest_num = Trip.objects.filter(device_IMEI=mg_imei).latest('datetime')
+            try: 
+                latest_num = Trip.objects.filter(device_IMEI=mg_imei).latest('datetime')
+            except Trip.DoesNotExist:
+                raise Http404("No trips recorded.")
             lastest_trip_number = latest_num.trip_number
             distinct_trip = Trip.objects.filter(device_IMEI=mg_imei).values('trip_number').distinct()
             # distinct_trip = Trip.objects.filter(device_IMEI=mg_imei).order_by('-datetime').distinct('trip_number')
@@ -114,9 +113,7 @@ class TripView(TemplateView):
             )
 
             trip_info = latest_trip.latest('datetime')
-            trip_info.query = 0
-
-          
+            trip_info.query = 0  
 
             args = {'trip':latest_trip,'distinct_trip':distinct_trip,'trip_info':trip_info}
             return render(request, self.template_name, args)
