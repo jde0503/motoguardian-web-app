@@ -1,18 +1,68 @@
 {% extends 'layout_dashboard.html' %}
 {% load static %}
 {% block content %}
-<h3>no arguements</h3> <br>
-{% for trip in trips %}
-{{ trip.trip_number }}
-{% endfor %}
-
-<h3>with arguements</h3> <br>
-{% for item in trip %}
-{{ item.lat}},{{ item.lng }}<br>
-{% endfor %}
 
 
+<style type="text/css">
+	#map{
+		height:500px;
+		width: 500px;
+		position:absolute;
+	}
+</style>
+<div class="container">
+	<h1> Trip History </h1>
+	<div class="row justify-content-center">
+		<div class="col-lg-8">
+			<div id="map"></div>
+		</div>
+	</div>
+	
+</div>
 
+<!-- 32.877679, -117.214136 -->
+<script type="text/javascript">
+	var dict_list = [];
+	{% for item in latest_trip %}
+	 // create an empty array
+
+		dict_list.push({
+		    lat: {{item.lat}},
+		    lng: {{item.lng}}
+		});
+	{% endfor %}
+	console.log(dict_list)
+
+
+</script>
+<script type="text/javascript">
+	function initMap() {
+	  var map = new google.maps.Map(document.getElementById('map'), {
+	    zoom: 15,
+	    center: {lat: 32.877679, lng: -117.214136},
+	    mapTypeId: 'terrain'
+	  });
+
+	  var flightPath = new google.maps.Polyline({
+	    path: dict_list,
+	    geodesic: true,
+	    strokeColor: '#FF0000',
+	    strokeOpacity: 1.0,
+	    strokeWeight: 2
+	  });
+	  // var markers = [];//some array
+	  var bounds = new google.maps.LatLngBounds ();
+	  for (var i = 0, LtLgLen = dict_list.length; i < LtLgLen; i++) {
+	    //  And increase the bounds to take this point
+	    bounds.extend (dict_list[i]);
+	  }
+	  //  Fit these bounds to the map
+	  map.fitBounds (bounds);
+	  
+	  flightPath.setMap(map);
+
+	}
+</script>
 
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9Lg54i0EXC09HSeRSBF9OWXLdDEKNjmU&callback=initMap">

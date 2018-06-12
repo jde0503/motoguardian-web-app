@@ -72,17 +72,28 @@ class TripView(TemplateView):
     slug_field = 'mg_imei'
     slug_url_kwarg = 'mg_imei'
     def get(self, request, mg_imei):
-        trips = Trip.objects.filter(device_IMEI=mg_imei)
+        # trips = Trip.objects.filter(device_IMEI=mg_imei)
         query = request.GET.get('trip_number')
+
         if query:
-            trip_number = Trip.objects.filter(trip_number=str(query)).order_by('-datetime')
+            trip_number = Trip.objects.filter(
+            Q(trip_number=str(query)),
+            Q(device_IMEI=mg_imei),
+            )
             args = {'trip':trip_number}
             return render(request, self.template_name, args)
 
-
+        # else get query set of most recent trip
         else:
-
-            args = {'trips':trips}
+            #get lastest trip number
+            latest_num = Trip.objects.filter(device_IMEI=mg_imei).latest('datetime')
+            lastest_trip_number = latest_num.trip_number
+            print(lastest_trip_number)
+            latest_trip = Trip.objects.filter(
+            Q(trip_number=str(lastest_trip_number)),
+            Q(device_IMEI=mg_imei),
+            )
+            args = {'latest_trip':latest_trip}
             return render(request, self.template_name, args)
 
 # Lists all device on dashboard
