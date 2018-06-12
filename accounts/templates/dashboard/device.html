@@ -58,11 +58,27 @@
 			  		{% else %}
 			  		Activated
 			  		<i class="fa fa-check text-success" aria-hidden="true"></i>
-			  		{% endif %} <br>
+			  		{% endif %} <br> 
 			  		<b>Current Location: </b><br>
-			  		<i class="text-info">{{latest_notification.location}}</i><br>
-			  		<i>(last updated: {{latest_notification.datetime}})</i><br>
-			  		<div id="map"></div>
+			  			{% if not device.trip_tracking %}
+				  			{% if latest_notification.notification_type == "crash_detected" %}
+				  				<b>Alert: {{latest_notification.notification_type}}</b>
+				  				<b>Alert:</b> <b class="text-danger"> Crash Detected!</b>
+				  				<div id="map"></div>
+				  			{% elif latest_notification.notification_type == "theft_detected" %}
+				  				<b>Alert:</b> <b class="text-danger"> Theft Detected!</b>
+				  				<div id="map"></div>
+				  			{% else %}
+								<i class="text-info">Trip Tracking is disabled.</i>
+				  			{% endif %}
+
+			  			{% else %}
+			  				<i class="text-info">{{latest_notification.location}}</i><br>
+			  				<i>(last updated: {{latest_notification.datetime}})</i><br>
+			  				<div id="map"></div>	  			
+			  			{% endif %}
+
+
 			  		<script> 
 						var latVal = {{latest_notification.lat}}
 					    var lngVal = {{latest_notification.lng}}

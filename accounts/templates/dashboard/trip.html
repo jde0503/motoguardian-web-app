@@ -2,28 +2,62 @@
 {% load static %}
 {% block content %}
 
-
-<style type="text/css">
+<head>
+	<link href="{% static 'css/trip.css' %}" rel="stylesheet">
+</head>
+<!-- <style type="text/css">
 	#map{
 		height:500px;
 		width: 500px;
-		position:absolute;
+		
 	}
-</style>
+</style> -->
 <div class="container">
-	<h1> Trip History </h1>
-	<div class="row justify-content-center">
-		<div class="col-lg-8">
-			<div id="map"></div>
-		</div>
+	
+	<div class="card">
+	  <div class="card-body">
+
+	    <h4 class="card-title">Trip History</h4>
+	    {% if trip_info.query %}
+		<b>Trip #{{ trip_info.trip_number }} </b> on {{ trip_info.datetime }}
+	    {% else %}
+	    <b>Most Recent Trip</b> on {{ trip_info.datetime }}
+	    {% endif %}
+	    <p class="card-text">
+	      <div id="map"> </div>
+	    </p>
+	    <!-- <a href="#!" class="card-link">Card link</a>
+	    <a href="#!" class="card-link">Another link</a> -->
+	  </div>
+	  	<div class="card-footer">
+    		<h4>Select Trip Number:</h4> 
+		{% for item in trip %}
+			<form action="{% url 'device-trip' item.device_IMEI %}" method="get" name="TripForm">
+			{% endfor %}
+			    <select name="trip_number" onchange="TripForm.submit()">
+			    	 <option value="" selected disabled hidden>Choose here</option>
+			        {% for num in distinct_trip %}
+			        <option value="{{num.trip_number}}">{{num.trip_number}}</option>
+			       	{% endfor %}
+			    </select>
+			    
+			   <!--  <input type="submit" value="Filter" /> -->
+			</form>
+  		</div>
 	</div>
+
+
+	
+
+	
+
+	
 	
 </div>
 
-<!-- 32.877679, -117.214136 -->
 <script type="text/javascript">
 	var dict_list = [];
-	{% for item in latest_trip %}
+	{% for item in trip %}
 	 // create an empty array
 
 		dict_list.push({
@@ -32,8 +66,6 @@
 		});
 	{% endfor %}
 	console.log(dict_list)
-
-
 </script>
 <script type="text/javascript">
 	function initMap() {
@@ -48,7 +80,7 @@
 	    geodesic: true,
 	    strokeColor: '#FF0000',
 	    strokeOpacity: 1.0,
-	    strokeWeight: 2
+	    strokeWeight: 3
 	  });
 	  // var markers = [];//some array
 	  var bounds = new google.maps.LatLngBounds ();

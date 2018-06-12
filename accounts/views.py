@@ -60,6 +60,7 @@ class DeviceView(TemplateView):
         except IndexError:
             location = "waiting for Google Maps API. Please refresh."
         latest_notification.location = location
+
         # print(notifications.location)
         args = {'devices':devices, 'notifications':notifications,'latest_notification':latest_notification}
         return render(request, self.template_name, args)
@@ -76,11 +77,26 @@ class TripView(TemplateView):
         query = request.GET.get('trip_number')
 
         if query:
+            distinct_trip = Trip.objects.filter(device_IMEI=mg_imei).values('trip_number').distinct()
+
+            # print(distinct_trip)
             trip_number = Trip.objects.filter(
             Q(trip_number=str(query)),
             Q(device_IMEI=mg_imei),
+            ).order_by('-datetime')
+
+            trip_info = Trip.objects.filter(
+            Q(trip_number=str(query)),
+            Q(device_IMEI=mg_imei),
             )
-            args = {'trip':trip_number}
+            trip_info = trip_info.latest('datetime')
+            trip_info.query = 1
+
+
+
+
+
+            args = {'trip':trip_number, 'distinct_trip':distinct_trip, 'trip_info':trip_info}
             return render(request, self.template_name, args)
 
         # else get query set of most recent trip
@@ -88,12 +104,21 @@ class TripView(TemplateView):
             #get lastest trip number
             latest_num = Trip.objects.filter(device_IMEI=mg_imei).latest('datetime')
             lastest_trip_number = latest_num.trip_number
-            print(lastest_trip_number)
+            distinct_trip = Trip.objects.filter(device_IMEI=mg_imei).values('trip_number').distinct()
+            # distinct_trip = Trip.objects.filter(device_IMEI=mg_imei).order_by('-datetime').distinct('trip_number')
+            # print(distinct_trip[0].trip_number)
+
             latest_trip = Trip.objects.filter(
             Q(trip_number=str(lastest_trip_number)),
             Q(device_IMEI=mg_imei),
             )
-            args = {'latest_trip':latest_trip}
+
+            trip_info = latest_trip.latest('datetime')
+            trip_info.query = 0
+
+          
+
+            args = {'trip':latest_trip,'distinct_trip':distinct_trip,'trip_info':trip_info}
             return render(request, self.template_name, args)
 
 # Lists all device on dashboard
