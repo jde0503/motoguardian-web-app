@@ -57,9 +57,14 @@
 					  		{% endif %} <br>
 
 							<b>Current Location: </b> <br>
-							<i class="text-info">{{device.location}} 
-								({{device.lat}},{{device.lng}})
-							</i>
+							{% if not device.trip_tracking %}
+								<i class="text-info">Trip Tracking is disabled.</i>
+							{% else %}
+								<i class="text-info">{{device.location}} 
+									({{device.lat}},{{device.lng}})
+								</i>
+							{% endif %}
+							
 
 							
 							<br>
@@ -68,9 +73,15 @@
 					  		{% if device.crash  %}
 					  		<b class="text-danger">Crash Detected!</b>
 					  		<i class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></i>
+					  		<i class="text-info">{{device.location}} 
+					  			({{device.lat}},{{device.lng}})
+					  		</i>
 					  		{% elif device.theft %}
 					  		<b class="text-danger">Theft Detected!</b> 
 							<i class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></i>
+							<i class="text-info">{{device.location}} 
+								({{device.lat}},{{device.lng}})
+							</i>
 							{% else %}
 							<i class="text-success"> No alerts </i>
 
