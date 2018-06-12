@@ -82,9 +82,14 @@
 						     
 
 						     <!-- Button trigger Trip modal -->
-						     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#TripModal">
+						     <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#TripModal">
 						     	<i class="fa fa-history" aria-hidden="true"></i> Trip History
-						     </button>
+						     </button> -->
+						     <a href="{% url 'device-trip' device.mg_imei %}">
+					         	<button  class=" btn btn-secondary">
+					     			<i class="fa fa-history" aria-hidden="true"></i> Trip History
+					     		</button>
+					         </a>
 					         <a href="{% url 'device-update' device.mg_imei %}">
 					         	<button  class=" btn btn-secondary">
 					     			<i class="fa fa-cog" aria-hidden="true"></i> Edit
@@ -95,46 +100,7 @@
 			    </div>
 
 			    <!-- Trip Modal -->
-			    <div class="modal fade" id="TripModal" tabindex="-1" role="dialog" aria-labelledby="TripModalLabel" aria-hidden="true">
-			      <div class="modal-dialog" role="document">
-			        <div class="modal-content">
-			          <div class="modal-header">
-			            <h5 class="modal-title" id="TripModalLabel">Trip History</h5>
-			            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			              <span aria-hidden="true">&times;</span>
-			            </button>
-			          </div>
-			          <div class="modal-body">
-			            
-			            <table class="table table-hover">
-			              <thead>
-			                <tr>
-			                	<!-- 'trip_number', 'speed', 'lean_angle' -->
-			                  <th>Trip #</th>
-			                  <th>Speed</th>
-			                  <th>Lean Angle</th>
-			                  <th>Date & Time</th>
-			                </tr>
-			              </thead>
-			              <tbody>
-			              	{% for trip in trips %}
-			                <tr>
-			                  <th scope="row">{{ trip.trip_number}}</th>
-			                  <td>{{ trip.speed }}</td>
-			                  <td>{{ trip.lean_angle }}</td>
-			                  <td>{{ trip.datetime }}</td>
-			                </tr>
-			                {% endfor %}
-			              </tbody>
-			            </table>
-			
-			          </div>
-			          <div class="modal-footer">
-			            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			          </div>
-			        </div>
-			      </div>
-			    </div>
+			    
 
 
 			    <!-- Notification Modal -->

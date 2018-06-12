@@ -52,8 +52,8 @@ class Trip(models.Model):
 	trip_number = models.CharField(max_length=150)
 	speed = models.CharField(max_length=50)
 	lean_angle = models.CharField(max_length=50)
-	lat = models.DecimalField(max_digits=20,decimal_places=10)
-	lng = models.DecimalField(max_digits=20,decimal_places=10)
+	lat = models.CharField(max_length=50)
+	lng = models.CharField(max_length=50)
 	
 
 	device_IMEI = models.ForeignKey(Device, to_field='mg_imei', on_delete=models.CASCADE)

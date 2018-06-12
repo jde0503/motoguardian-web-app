@@ -1,0 +1,20 @@
+{% extends 'layout_dashboard.html' %}
+{% load static %}
+{% block content %}
+<h3>no arguements</h3> <br>
+{% for trip in trips %}
+{{ trip.trip_number }}
+{% endfor %}
+
+<h3>with arguements</h3> <br>
+{% for item in trip %}
+{{ item.lat}},{{ item.lng }}<br>
+{% endfor %}
+
+
+
+
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9Lg54i0EXC09HSeRSBF9OWXLdDEKNjmU&callback=initMap">
+</script>
+{% endblock %}

@@ -24,7 +24,8 @@ from accounts.views import (
     DeviceDelete,
     DeviceSettings,
     TripAPI,
-    NotificationAPI
+    NotificationAPI,
+    TripView
 
     )
 from rest_framework.urlpatterns import format_suffix_patterns
@@ -49,6 +50,7 @@ urlpatterns = [
     path('dashboard/<mg_imei>/', login_required(DeviceView.as_view()), name='device-detail'),
     path('dashboard/<mg_imei>/edit/', login_required(DeviceUpdate.as_view()), name='device-update'),
     path('dashboard/<mg_imei>/delete/', login_required(DeviceDelete.as_view()), name='device-delete'),
+    path('dashboard/<mg_imei>/trip/',login_required(TripView.as_view()), name='device-trip'),
 
     
     # URL to GET device settings 

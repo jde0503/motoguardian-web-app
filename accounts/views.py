@@ -22,6 +22,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 import requests
+from django.db.models import Q
 
 #Renders Info of each device
 class DeviceView(TemplateView):
@@ -34,10 +35,10 @@ class DeviceView(TemplateView):
     def get(self, request, mg_imei ):
         devices = Device.objects.filter(mg_imei=mg_imei)
         try:
-            trips = Trip.objects.filter(device_IMEI=mg_imei).order_by('-datetime')
+            # trips = Trip.objects.filter(device_IMEI=mg_imei).order_by('-datetime')
             notifications = Notification.objects.filter(device_IMEI=mg_imei).order_by('-datetime')
             latest_notification = Notification.objects.filter(device_IMEI=mg_imei).latest('datetime')
-        except (Notification.DoesNotExist,Trip.DoesNotExist):
+        except Notification.DoesNotExist:
             return render(request, self.template_name, {'devices':devices})
         for notification in notifications:
             latVal = str(notification.lat)
@@ -60,8 +61,29 @@ class DeviceView(TemplateView):
             location = "waiting for Google Maps API. Please refresh."
         latest_notification.location = location
         # print(notifications.location)
-        args = {'devices':devices, 'trips':trips, 'notifications':notifications,'latest_notification':latest_notification}
+        args = {'devices':devices, 'notifications':notifications,'latest_notification':latest_notification}
         return render(request, self.template_name, args)
+
+#View for Trip History
+class TripView(TemplateView):
+    login_required = True
+    template_name = 'dashboard/trip.html'
+    
+    slug_field = 'mg_imei'
+    slug_url_kwarg = 'mg_imei'
+    def get(self, request, mg_imei):
+        trips = Trip.objects.filter(device_IMEI=mg_imei)
+        query = request.GET.get('trip_number')
+        if query:
+            trip_number = Trip.objects.filter(trip_number=str(query)).order_by('-datetime')
+            args = {'trip':trip_number}
+            return render(request, self.template_name, args)
+
+
+        else:
+
+            args = {'trips':trips}
+            return render(request, self.template_name, args)
 
 # Lists all device on dashboard
 class DashboardView(ListView):
