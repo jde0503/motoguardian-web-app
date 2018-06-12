@@ -34,7 +34,7 @@
 		{% for item in trip %}
 			<form action="{% url 'device-trip' item.device_IMEI %}" method="get" name="TripForm">
 			{% endfor %}
-			    <select name="trip_number" onchange="TripForm.submit()">
+			    <select name="trip_number" onchange="TripForm.submit()" class="selectpicker">
 			    	 <option value="" selected disabled hidden>Choose here</option>
 			        {% for num in distinct_trip %}
 			        <option value="{{num.trip_number}}">{{num.trip_number}}</option>
@@ -72,7 +72,7 @@
 	  var map = new google.maps.Map(document.getElementById('map'), {
 	    zoom: 15,
 	    center: {lat: 32.877679, lng: -117.214136},
-	    mapTypeId: 'terrain'
+	    
 	  });
 
 	  var flightPath = new google.maps.Polyline({
@@ -88,9 +88,46 @@
 	    //  And increase the bounds to take this point
 	    bounds.extend (dict_list[i]);
 	  }
+	  for (var i = 0; i < dict_list.length; i++) { 
+	    if (i == 0 ){
+	    	var marker = new google.maps.Marker({
+	    	  position: dict_list[i],
+	    	  map: map,
+	    	  label: 'End',
+	    	  icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+
+	    	});
+	    }
+	    else if(i == (dict_list.length -1)){
+
+		    var marker = new google.maps.Marker({
+		      position: dict_list[i],
+		      map: map,
+		      label: 'Start',
+		      icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+
+		    });
+
+		}
+		else{
+			// var marker = new google.maps.Marker({
+		 //      position: dict_list[i],
+		 //      map: map,
+		     
+		      
+
+		 //    });
+		}
+	    // google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+	    //   return function() {
+	    //     // infowindow.setContent('content');
+	    //     infowindow.open(map, marker);
+	    //   }
+	    // })(marker, i));
+	  }
 	  //  Fit these bounds to the map
 	  map.fitBounds (bounds);
-	  
+	  // marker.setMap(map);
 	  flightPath.setMap(map);
 
 	}
