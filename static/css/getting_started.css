@@ -3,8 +3,13 @@
 }
 
 .pic {
-    width: 100px;
-    height:100px;
+    width: 300px;
+    height: 250px;
+    text-align: center;
+}
+
+td {
+    text-align: center;
 }
 
 .table {
@@ -19,5 +24,9 @@
     .info {
         margin-left: 5px;
         margin-right: 5px;
+    }
+    .pic {
+        width:150px;
+        height:100px;
     }
 }
