@@ -20,12 +20,23 @@
 	    <h4 class="card-title">Trip History</h4>
 	    {% if trip_info.query %}
 		<b>Trip #{{ trip_info.trip_number }} </b> on {{ trip_info.datetime }}
+		
 	    {% else %}
-	    <b>Most Recent Trip</b> on {{ trip_info.datetime }}
+	    <b>Most Recent Trip</b> on {{ trip_info.datetime }}<br>
+	    
 	    {% endif %}
+
+
 	    <p class="card-text">
 	      <div id="map"> </div>
 	    </p>
+	    {% if trip_info.query %}
+		<b>Average Speed: </b>{{trip_info.avg_speed}}
+	    <b>Average Lean Angle: </b>{{trip_info.avg_lean}}
+	    {% else %}
+	    <b>Average Speed: </b>{{trip_info.avg_speed}}<br>
+	    <b>Average Lean Angle: </b>{{trip_info.avg_lean}}
+	    {% endif %}
 	    <!-- <a href="#!" class="card-link">Card link</a>
 	    <a href="#!" class="card-link">Another link</a> -->
 	  </div>
@@ -41,18 +52,10 @@
 			       	{% endfor %}
 			    </select>
 			    
-			   <!--  <input type="submit" value="Filter" /> -->
 			</form>
   		</div>
 	</div>
 
-
-	
-
-	
-
-	
-	
 </div>
 
 <script type="text/javascript">

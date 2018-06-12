@@ -79,19 +79,30 @@ class TripView(TemplateView):
 
         if query:
             distinct_trip = Trip.objects.filter(device_IMEI=mg_imei).values('trip_number').distinct()
-
-            # print(distinct_trip)
+            num_speed = []
+            num_lean = []
             trip_number = Trip.objects.filter(
             Q(trip_number=str(query)),
             Q(device_IMEI=mg_imei),
             ).order_by('-datetime')
+            for item in trip_number:
+                num_speed.append(float(item.speed))
+                num_lean.append(float(item.lean_angle))
+            sum_speed = sum(num_speed)
+            sum_lean = sum(num_lean) 
+            n_speed = len(num_speed)
+            n_lean = len(num_lean) 
 
+
+            
             trip_info = Trip.objects.filter(
             Q(trip_number=str(query)),
             Q(device_IMEI=mg_imei),
             )
             trip_info = trip_info.latest('datetime')
             trip_info.query = 1
+            trip_info.avg_speed = sum_speed/n_lean
+            trip_info.avg_lean = sum_lean/n_lean
             args = {'trip':trip_number, 'distinct_trip':distinct_trip, 'trip_info':trip_info}
             return render(request, self.template_name, args)
 
@@ -111,9 +122,20 @@ class TripView(TemplateView):
             Q(trip_number=str(lastest_trip_number)),
             Q(device_IMEI=mg_imei),
             )
-
+            num_speed = []
+            num_lean = []
+            for item in latest_trip:
+                num_speed.append(float(item.speed))
+                num_lean.append(float(item.lean_angle))
+            sum_speed = sum(num_speed)
+            sum_lean = sum(num_lean) 
+            n_speed = len(num_speed)
+            n_lean = len(num_lean)
+            
             trip_info = latest_trip.latest('datetime')
-            trip_info.query = 0  
+            trip_info.query = 0 
+            trip_info.avg_speed = sum_speed/n_lean
+            trip_info.avg_lean = sum_lean/n_lean 
 
             args = {'trip':latest_trip,'distinct_trip':distinct_trip,'trip_info':trip_info}
             return render(request, self.template_name, args)
